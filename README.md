@@ -1,0 +1,1 @@
+JS React app with Spring Boot backend made for doc Bazan as project
