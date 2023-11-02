@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import React, {Component} from 'react';
+import './config.js'
 
 class App extends Component {
   state = {
@@ -8,7 +9,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    fetch('/api/hello') // Wykonujemy żądanie do backendu
+    fetch('${backendUrl}/api/hello') // Wykonujemy żądanie do backendu
         .then(response => response.text())
         .then(data => {
             this.setState({ message: data });
