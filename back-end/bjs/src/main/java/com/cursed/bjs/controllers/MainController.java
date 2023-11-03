@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.ui.Model;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @Controller
+@RequestMapping("/api/v1")
 public class MainController {
 
     @RequestMapping("/powitanie")
@@ -22,7 +23,7 @@ public class MainController {
         return "powitanie"; //Przekierowanie do strony powitanie.html
     }
 
-    @RequestMapping(value = "/api/hello", method = RequestMethod.GET)
+    @GetMapping("/hello")
     @ResponseBody
     public String sayHello() {
         return "Hello from Spring Boot!";

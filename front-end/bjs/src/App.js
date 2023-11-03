@@ -1,21 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
 import React, {Component} from 'react';
-import './config.js'
+
+const backendUrl = 'http://localhost:8001';
 
 class App extends Component {
   state = {
-    message: ''
+    message: 'Wolololo'
   };
 
   componentDidMount() {
-    fetch('${backendUrl}/api/hello') // Wykonujemy żądanie do backendu
+    fetch(`http://localhost:8081/api/v1/hello`) // Wykonujemy żądanie do backendu
         .then(response => response.text())
         .then(data => {
             this.setState({ message: data });
-        })
-        .catch(error => {
-            console.error('Błąd:', error);
+            console.log('Dane z backendu:', data);
         });
 }
 
