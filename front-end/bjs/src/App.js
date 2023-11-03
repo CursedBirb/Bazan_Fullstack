@@ -6,17 +6,34 @@ const backendUrl = 'http://localhost:8001';
 
 class App extends Component {
   state = {
-    message: 'Wolololo'
+    message1: 'Wolololo',
+    message2: '',
+    dataToSend: 'Hello from React!'
   };
 
   componentDidMount() {
-    fetch(`http://localhost:8081/api/v1/hello`) // Wykonujemy żądanie do backendu
+    fetch(`http://localhost:8081/api/v1/getData`) // Wykonujemy żądanie do backendu
         .then(response => response.text())
-        .then(data => {
-            this.setState({ message: data });
-            console.log('Dane z backendu:', data);
+        .then(data1 => {
+            this.setState({ message1: data1 });
+            console.log('Dane z backendu:', data1);
         });
 }
+
+sendDataToBackend = () => {
+  fetch('http://localhost:8081/api/v1/sendData', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state.dataToSend)
+  })
+  .then(response => response.text())
+  .then(data2 => {
+      this.setState({ message2: data2 });
+  });
+}
+
 
   render() {
     return (
@@ -27,7 +44,9 @@ class App extends Component {
             Edit <code>src/App.js</code> and save to reload.
             Really?
           </p>
-          <p>Message from the backend: {this.state.message}</p>
+          <p>Message from the backend: {this.state.message1}</p>
+          <button onClick={this.sendDataToBackend}>Send Data to Backend</button>
+          <p>Back message from the backend: {this.state.message2}</p>
           <a
             className="App-link"
             href="https://reactjs.org"
