@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
-@ComponentScan(basePackages = {"com.cursed.bjs", "com.cursed.bjs.database"})
+@SpringBootApplication
+@ComponentScan(basePackages = {"com.cursed.bjs", "com.cursed.bjs.database", "com.cursed.bjs.controllers", "com.cursed.bjs.services"})
 public class BjsApplication {
 
 	public static void main(String[] args) {
