@@ -1,5 +1,8 @@
 package com.cursed.bjs.controllers;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +16,16 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ui.Model;
 
+import com.cursed.bjs.models.Hiragana;
+import com.cursed.bjs.repositories.HiraganaRepository;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/api/v1")
 public class MainController {
+
+    @Autowired
+    private HiraganaRepository repository;
 
     @GetMapping("/getData")
     @ResponseBody
@@ -29,6 +38,17 @@ public class MainController {
        System.out.println("Received data: " + data);
        return "Data received: " + data;
    }
+
+//    @GetMapping("/getHiraganaRecord")
+//     @ResponseBody
+//     public String SendHiragana() {
+
+//         List<Hiragana> hiraganaList = repository.findAll();
+
+//         return hiraganaList.get(1).toString();
+//     }
+
+   
     
 
     @ExceptionHandler

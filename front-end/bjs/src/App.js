@@ -11,13 +11,24 @@ class App extends Component {
     dataToSend: 'Hello from React!'
   };
 
-  componentDidMount() {
-    fetch(`http://localhost:8081/api/v1/getData`) // Wykonujemy żądanie do backendu
-        .then(response => response.text())
-        .then(data1 => {
-            this.setState({ message1: data1 });
-            console.log('Dane z backendu:', data1);
-        });
+
+
+// componentDidMount() {
+//   fetch(`http://localhost:8081/api/v1/getData`) // Wykonujemy żądanie do backendu
+//       .then(response => response.text())
+//       .then(data1 => {
+//           this.setState({ message1: data1 });
+//           console.log('Dane z backendu:', data1);
+//       });
+// }
+
+componentDidMount() {
+  fetch(`http://localhost:8081/api/v1/getHiraganaRecord`) // Wykonujemy żądanie do backendu
+      .then(response => response.text())
+      .then(data1 => {
+          this.setState({ message1: data1 });
+          console.log('Dane z backendu:', data1);
+      });
 }
 
 sendDataToBackend = () => {
