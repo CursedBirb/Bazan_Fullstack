@@ -19,7 +19,7 @@ import org.springframework.ui.Model;
 import com.cursed.bjs.models.Hiragana;
 import com.cursed.bjs.repositories.HiraganaRepository;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1")
 public class MainController {
@@ -34,19 +34,20 @@ public class MainController {
     }
 
     @PostMapping("/sendData")
-   public String receiveData(@RequestBody String data) {
+    public String receiveData(@RequestBody String data) {
        System.out.println("Received data: " + data);
        return "Data received: " + data;
-   }
+    }
 
-//    @GetMapping("/getHiraganaRecord")
-//     @ResponseBody
-//     public String SendHiragana() {
+    @GetMapping("/getHiraganaRecord")
+    @ResponseBody
+    public List<Hiragana> getAllHiragana_name() {
 
-//         List<Hiragana> hiraganaList = repository.findAll();
+        //hiraganaList = repository.findAll();
 
-//         return hiraganaList.get(1).toString();
-//     }
+        //return hiraganaList.get(1).toString();
+        return repository.findAll();
+    }
 
    
     
