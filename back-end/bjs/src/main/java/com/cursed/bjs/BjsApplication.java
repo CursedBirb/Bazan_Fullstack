@@ -26,12 +26,12 @@ public class BjsApplication implements CommandLineRunner {
     public void run(String... args) {
               
         //Wstawienie osob do bazy
-        repository.save(new Hiragana("A","qwerty"));
-        repository.save(new Hiragana("I","qwertyu"));
-        repository.save(new Hiragana("U","qwertyui"));
-        repository.save(new Hiragana("E","qwertyuio"));
-        repository.save(new Hiragana("O","qwertyuiop"));
-        repository.save(new Hiragana("Ka","asdfgh"));
+        // repository.save(new Hiragana("A","qwerty"));
+        // repository.save(new Hiragana("I","qwertyu"));
+        // repository.save(new Hiragana("U","qwertyui"));
+        // repository.save(new Hiragana("E","qwertyuio"));
+        // repository.save(new Hiragana("O","qwertyuiop"));
+        // repository.save(new Hiragana("Ka","asdfgh"));
         
         //----------------------------------------------------
         

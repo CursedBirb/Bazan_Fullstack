@@ -1,9 +1,12 @@
 package com.cursed.bjs.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity 
 @Table(name = "hiragana")
+@Getter @Setter
 public class Hiragana {
 
     @Id
