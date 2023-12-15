@@ -8,7 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.cursed.bjs.models.Hiragana;
+import com.cursed.bjs.models.LatestScores;
 import com.cursed.bjs.repositories.HiraganaRepository;
+import com.cursed.bjs.repositories.LatestScoresRepository;
 
 @SpringBootApplication
 public class BjsApplication implements CommandLineRunner {
@@ -18,8 +20,8 @@ public class BjsApplication implements CommandLineRunner {
 	}
 
 	//Wstrzykniecie beana repozytorium
-    @Autowired
-    private HiraganaRepository repository;
+    @Autowired private HiraganaRepository repository;
+    @Autowired private LatestScoresRepository repo2;
     
     
     @Override
@@ -39,8 +41,9 @@ public class BjsApplication implements CommandLineRunner {
         List<Hiragana> hiraganaList = repository.findAll();
         for (int i=0; i<hiraganaList.size(); i++) {         
             System.out.println(hiraganaList.get(i).toString());	
-	}
-        System.out.println("=====================================");
+	    }
+
+        System.out.println(repo2.findById(1).toString());
         
         
 

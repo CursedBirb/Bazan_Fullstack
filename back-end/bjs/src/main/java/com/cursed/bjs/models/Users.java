@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 @Getter @Setter
 public class Users {
 
@@ -16,10 +16,10 @@ public class Users {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "hashedPassword")
+    @Column(name = "hashed_password")
     private String hashedPassword;
 
-    @Column(name = "es")
+    @Column(name = "email")
     private String email;
     
     protected Users() {

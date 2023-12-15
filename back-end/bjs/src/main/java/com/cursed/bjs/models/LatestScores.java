@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "LatestScores")
+@Table(name = "latest_scores")
 @Getter @Setter
 public class LatestScores {
 

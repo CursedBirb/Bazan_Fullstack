@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
+import HiraganaList from './components/Hiragana';
+import LatestScores from './components/LatestScores';
 
 const backendUrl = 'http://localhost:8001';
 
@@ -9,8 +11,8 @@ class App extends Component {
     message1: 'Wolololo',
     message2: '',
     dataToSend: 'Hello from React!',
-    hiraganaList: [],
   };
+  
 
 // componentDidMount() {
 //   fetch(`http://localhost:8081/api/v1/getData`) // Wykonujemy żądanie do backendu
@@ -54,10 +56,9 @@ sendDataToBackend = () => {
 
 
   render() {
-    const {items} = this.state
     return (
       <div className="App">
-        {/* <header className="App-header">
+        <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
@@ -73,21 +74,10 @@ sendDataToBackend = () => {
             rel="noopener noreferrer"
           >
             Learn React
-          </a> */}
-
-        <h1>Lista znaków hiragany</h1>
-        <ul>{this.state.hiraganaList.map((hiragana) => (
-          <li key={hiragana.id}>
-            <p>{hiragana.hiraganaName}</p>
-            {/* <img src={hiragana.hiraganaImage} alt={hiragana.hiraganaName} /> */}
-          </li>
-        ))}
-        </ul>
-
-        <button onClick={this.sendDataToBackend}>Send Data to Backend</button>
-        <p>Back message from the backend: {this.state.message2}</p>
-
-        {/* </header> */}
+          </a>
+          {/* <HiraganaList /> */}
+          <LatestScores />
+        </header>
       </div>  
     );
   }
