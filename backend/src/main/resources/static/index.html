@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div id="BankNoAuth_id"></div>
+
+    <script type="text/babel">
+
+        function BankTransNoAuthHook() {
+
+            const [status, setStatus] = React.useState("OK");
+            const [textArea, setTextArea] = React.useState("Brak danych");
+            const [newClientname, setNewClientname] = React.useState("nowak");
+            const [newDate, setNewDate] = React.useState("2022-10-30");
+            const [newDescription, setNewDescription] = React.useState("Zakup USD");
+            const [newAmount, setNewAmount] = React.useState("345.1");
+            const [transferIDToDelete, setTransferIDToDelete] = React.useState("1");
+
+            //Dodanie przelewu na serwer
+            async function addTransfer() {
+
+                let clientname = newClientname;
+                let date = newDate;
+                let description = newDescription;
+                let amount = newAmount;
+
+
+                if ((clientname.length > 0) && (date.length > 0) && (description.length > 0) && (amount.length > 0)) {
+                    await axios.post('http://localhost:8081/addtransfer/',
+                        { clientname, date, description, amount }, //Podajemy parametry
+                    )
+                        .then(response => {
+                            let text = response.data;
+                            setStatus(text);
+                        }).catch(err => {
+                            let myerror = "Blad polaczenia sieciowego." + err;
+                            setStatus(myerror);
+                        });
+                }
+                else {
+                    setStatus("Zadna z danych wstawianego przelewu nie moze byc pusta");
+                }
+            }
+
+
+            //Pobranie listy przelewow z serwera
+            async function getTransfers() {
+
+                await axios.post('http://localhost:8081/gettransfers/')
+                    .then(response => {
+
+                        let transferListText = ""
+
+                        response.data.forEach((e) => {
+                            let lid = e.id;
+                            let lclientname = e.clientname; let ldate = e.date; let ldescription = e.description; let lamount = e.amount;
+
+                            let firstPartText = lclientname.substring(0, ("ERROR:").length);
+
+
+                            if (firstPartText !== "ERROR:") {
+                                transferListText = transferListText + lid + ", " + lclientname + ", " + ldate + ", " + ldescription + ", " + lamount + "\n";
+                                setTextArea(transferListText);
+                                setStatus("OK");
+                            }
+                            else {
+                                let secondPartText = lclientname.substring(("ERROR:").length, lclientname.length);
+                                transferListText = lclientname + "\n";
+                                setTextArea(transferListText);
+                                setStatus(secondPartText);
+                            }
+                        })
+
+                    }).catch(err => {
+
+                        let myerror = "Blad polaczenia sieciowego." + err;
+                        setStatus(myerror);
+                    });
+
+            }
+
+
+            async function deleteTransfer() {
+
+                let transferidtodelete = transferIDToDelete;
+
+                if (transferidtodelete.length > 0) {
+
+                    await axios.post('http://localhost:8081/deletetransfer/',
+                        { transferidtodelete }, //Podajemy parametr
+                    )
+                        .then(response => {
+                            let text = response.data;
+                            setStatus(text);
+                        }).catch(err => {
+                            let myerror = "Blad polaczenia sieciowego." + err;
+                            setStatus(myerror);
+                        });
+                }
+                else {
+                    setStatus("ID przelewu nie moze byc puste");
+                }
+            }
+
+            const handleSubmit = (event) => {
+                addTransfer();
+                event.preventDefault();
+            }
+
+            return (
+
+                <div>
+
+                    <h2>Klient dostepu do przelewow w banku z uzyciem REST (bez autoryzacji, HOOK)</h2>
+                    <h3>Lokalizacja API: http://localhost:8081/</h3>
+
+                    <p></p>
+
+                    <h3>Status: {status}</h3>
+
+                    <p></p><p></p>
+
+                    <button variant="primary" onClick={getTransfers}>  Odczytaj aktualna liste przelewow  </button>
+
+                    <p></p>
+
+
+                    <textarea value={textArea} rows="5" cols="50" onChange={(e) => setTextArea(e.target.value)} />
+
+                    <p></p><p></p>
+
+                    <label> Dane nowego przelewu: </label>
+
+
+                    <form onSubmit={handleSubmit}>
+                        <label> Klient: </label>  <input type="text" name='newClientname' value={newClientname} onChange={(e) => setNewClientname(e.target.value)} />
+                        <label> Data przelewu: </label> <input type="text" name='newDate' value={newDate} onChange={(e) => setNewDate(e.target.value)} />
+                        <label> Opis przelewu: </label> <input type="text" name='newDescription' value={newDescription} onChange={(e) => setNewDescription(e.target.value)} />
+                        <label> Kwota: </label> <input type="text" name='newAmount' value={newAmount} onChange={(e) => setNewAmount(e.target.value)} />
+                        <button type="submit">  Dodaj  </button>
+                    </form>
+
+                    <p></p><p></p>
+
+                    <label>  Podaj id przelewu do usuniecia: </label>
+                    <input type="text" name='transferIDToDelete' value={transferIDToDelete} onChange={(e) => setTransferIDToDelete(e.target.value)} />
+
+                    <button onClick={deleteTransfer}>  Usun  </button>
+
+
+                </div>
+
+            );
+        }
+
+        const container = document.getElementById('BankNoAuth_id');
+        const root = ReactDOM.createRoot(container);
+        root.render(<BankTransNoAuthHook />);
+    </script>
+
+</body>
+
+</html>
+
