@@ -3,13 +3,13 @@
 //W celu przetestowania klienta należy uruchomić serwer wykonany za pomoca Sprint Boot w języku Java (WEBSERVICE BANK NO AUTH)
 
 
-import React, { Component, useState } from "react";
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Alert from 'react-bootstrap/Alert';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
 
 
 export default function BankTransNoAuthHook() {

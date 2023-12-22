@@ -3,16 +3,16 @@ package common;
 import controllers.models.Transfer;
 import lombok.Data;
 
-@Data //Adnotacja @Data wystarczy aby Lombok wygenerował getery, setery, toString, equals i inne 
+@Data //Adnotacja @Data wystarczy aby Lombok wygenerował getery, setery, toString, equals i inne
 public class TTransfer {
         
     private int id;
     private String clientname;
-    private String date;    
+    private String date;
     private String description;
     private double amount;
 
-    public TTransfer(int id, String clientname, String date, String description, double amount) {    
+    public TTransfer(int id, String clientname, String date, String description, double amount) {
         this.id = id;
         this.clientname = clientname;
         this.date = date;
@@ -20,7 +20,7 @@ public class TTransfer {
         this.amount = amount;
     }
     
-    public TTransfer(Transfer transfer) {        
+    public TTransfer(Transfer transfer) {
         this.id = transfer.getId();
         this.clientname = transfer.getClientname();
         this.date = transfer.getDate();
@@ -28,7 +28,7 @@ public class TTransfer {
         this.amount = transfer.getAmount();
     }
     
-    public TTransfer(String errorText) {        
+    public TTransfer(String errorText) {
         this.id = -1;
         this.clientname = errorText;
         this.date = "";
@@ -36,7 +36,7 @@ public class TTransfer {
         this.amount = 0.0;
     }
 
-    public TTransfer() {               
+    public TTransfer() {
         this.id = -1;
         this.clientname = "brak";
         this.date = "brak";

@@ -1,6 +1,7 @@
 package clients;
 
 import java.util.List;
+
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -36,7 +37,7 @@ public static void main(String[] args) {
             for (int i=0;i<scoresList.size(); i++)
             {
                 LLatestScores latesScores = scoresList.get(i);
-                System.out.println(latesScores.getId()+","+latesScores.getUsername()+","+latesScores.getHiragana_score_1()+","+latesScores.getHiragana_score_2()+","+latesScores.getHiragana_score_3()+","+latesScores.getKatakana_score_1()+","+latesScores.getKatakana_score_2()+","+latesScores.getKatakana_score_3());
+                System.out.println(latesScores.getId()+","+latesScores.getUsername()+","+latesScores.getHiraganaScore1()+","+latesScores.getHiraganaScore2()+","+latesScores.getHiraganaScore2()+","+latesScores.getKatakanaScore1()+","+latesScores.getKatakanaScore2()+","+latesScores.getKatakanaScore3());
             }
                                     
                                                 

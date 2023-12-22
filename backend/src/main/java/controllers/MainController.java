@@ -1,38 +1,24 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.ui.Model;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import controllers.models.Hiragana;
-import controllers.models.Katakana;
 import controllers.models.LatestScores;
-
 import controllers.repositories.HiraganaRepository;
 import controllers.repositories.KatakanaRepository;
 import controllers.repositories.LatestScoresRepository;
-import services.HiraganaService;
-import common.LLatestScores;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -42,7 +28,7 @@ public class MainController {
     @Autowired private HiraganaRepository hRepository;
     @Autowired private KatakanaRepository kRepository;
     @Autowired private LatestScoresRepository lSRepository;
-    @Autowired private HiraganaService hService;
+    // @Autowired private HiraganaService hService;
 
     @GetMapping("/getData")
     @ResponseBody
@@ -52,8 +38,8 @@ public class MainController {
 
     @PostMapping("/sendData")
     public String receiveData(@RequestBody String data) {
-       System.out.println("Received data: " + data);
-       return "Data received: " + data;
+        System.out.println("Received data: " + data);
+        return "Data received: " + data;
     }
 
     @RequestMapping(value = "/addScore", method = RequestMethod.POST)
@@ -88,45 +74,45 @@ public class MainController {
 
     }
 
-    @RequestMapping(value = "/getScores", method = RequestMethod.POST)
-    public ResponseEntity<ArrayList<LLatestScores>> getLatest(ServletRequest request) {
-              
-        try
-        {                                    
+    // @RequestMapping(value = "/getScores", method = RequestMethod.POST)
+    // public ResponseEntity<ArrayList<LLatestScores>> getLatest(ServletRequest request) {
+
+    //     try
+    //     {
                 
-            //List<Transfer> scoresList = scoresRepository.findByUsername(userName);
-            List<LatestScores> latestScoresList = lSRepository.findAll();
+    //         //List<Transfer> scoresList = scoresRepository.findByUsername(userName);
+    //         List<LatestScores> latestScoresList = lSRepository.findAll();
 
-            if (latestScoresList==null) 
-            {           
-                throw new IllegalArgumentException("Nie ma danych");                             
-            }
+    //         if (latestScoresList==null)
+    //         {
+    //             throw new IllegalArgumentException("Nie ma danych");
+    //         }
 
-            ArrayList<LLatestScores> locLatestList = new ArrayList<LLatestScores>();
+    //         ArrayList<LLatestScores> locLatestList = new ArrayList<LLatestScores>();
 
-            for (int i=0; i<latestScoresList.size(); i++)
-            {
-                LatestScores latest = latestScoresList.get(i);
-                LLatestScores locLatest = new LLatestScores(latest);
-                locLatestList.add(locLatest);                  
-            }
+    //         for (int i=0; i<latestScoresList.size(); i++)
+    //         {
+    //             LatestScores latest = latestScoresList.get(i);
+    //             LLatestScores locLatest = new LLatestScores(latest);
+    //             locLatestList.add(locLatest);
+    //         }
 
-            System.out.println("Data send: " + locLatestList);
+    //         System.out.println("Data send: " + locLatestList);
             
-            ResponseEntity<ArrayList<LLatestScores>> res = new ResponseEntity(locLatestList, HttpStatus.OK);
-            return res;
+    //         ResponseEntity<ArrayList<LLatestScores>> res = new ResponseEntity(locLatestList, HttpStatus.OK);
+    //         return res;
 
-        }        
-        catch (Exception e)
-        {         
-            ArrayList<LLatestScores> locLatestList = new ArrayList<LLatestScores>();            
-            LLatestScores locLatest = new LLatestScores();
-            locLatest.setUsername("ERROR:"+e.getMessage());
-            locLatestList.add(locLatest);
-            ResponseEntity<ArrayList<LLatestScores>> res = new ResponseEntity(locLatestList, HttpStatus.OK);
-            return res;
-        }
-    }
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         ArrayList<LLatestScores> locLatestList = new ArrayList<LLatestScores>();
+    //         LLatestScores locLatest = new LLatestScores();
+    //         locLatest.setUsername("ERROR:"+e.getMessage());
+    //         locLatestList.add(locLatest);
+    //         ResponseEntity<ArrayList<LLatestScores>> res = new ResponseEntity(locLatestList, HttpStatus.OK);
+    //         return res;
+    //     }
+    // }
 
     @GetMapping("/getScoreRecord")
     @ResponseBody
@@ -149,13 +135,13 @@ public class MainController {
     //     //return hiraganaList.get(1).toString();
     // }
 
-    @GetMapping("/getHiraganaRecord")
-    @ResponseBody
-    public  ResponseEntity<List<Hiragana>> getRecordById() {
+    // @GetMapping("/getHiraganaRecord")
+    // @ResponseBody
+    // public  ResponseEntity<List<Hiragana>> getRecordById() {
 
-        List<Hiragana> entities = hService.getRecordById();
-        return new ResponseEntity<>(entities, HttpStatus.OK);
-    }
+    //     List<Hiragana> entities = hService.getRecordById();
+    //     return new ResponseEntity<>(entities, HttpStatus.OK);
+    // }
 
     @ExceptionHandler
     public String handlerException(Model model,Exception exception)

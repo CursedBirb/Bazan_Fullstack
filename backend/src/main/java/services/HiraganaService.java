@@ -1,12 +1,12 @@
-package com.cursed.bjs.services;
+package services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cursed.bjs.models.Hiragana;
-import com.cursed.bjs.repositories.HiraganaRepository;
+import controllers.models.Hiragana;
+import controllers.repositories.HiraganaRepository;
 
 @Service
 public class HiraganaService {
