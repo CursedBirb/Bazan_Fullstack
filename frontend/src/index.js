@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import BankTransNoAuthHook from "./components/BankTransNoAuthHook";
+import GetHiraganaRomajiAndImage from './components/GetHiraganaRomajiAndImage';
 import GetLatestScores from './components/GetLastestScore';
 
 
@@ -12,6 +13,7 @@ root.render(
 
     <BankTransNoAuthHook/>
     <GetLatestScores />
+    <GetHiraganaRomajiAndImage />
 
   </React.StrictMode>
 );

@@ -7,12 +7,13 @@ import Form from 'react-bootstrap/Form';
 
 export default function GetLatestScores() {
 
+    const backendUrl = 'http://localhost:8081';
     const [status, setStatus] = useState("OK");
     const [textArea, setTextArea] = useState("Tu powinna być zawartość bazy danych, ale jak nie to mi wciąż nie działa");
 
     async function getScore() {
 
-        await axios.post('http://localhost:8081/api/v1/getlatestscore/')
+        await axios.post(`${backendUrl}/api/v1/getlatestscore/`)
             .then(response => {
 
                 let scoresListText = ""
