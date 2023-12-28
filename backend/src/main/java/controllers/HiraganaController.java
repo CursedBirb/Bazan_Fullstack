@@ -26,9 +26,8 @@ public class HiraganaController {
     @Autowired HiraganaRepository hiraganaRepository;
 
     @RequestMapping(value = "/gethiraganarecord", method=RequestMethod.POST)
-    public ResponseEntity<ArrayList<HHiragana>> getHiraganaRecord (ServletRequest request) {
+    public ResponseEntity<ArrayList<HHiragana>> getHiraganaRecords (ServletRequest request) {
         
-
         try
         {
                 
@@ -42,9 +41,9 @@ public class HiraganaController {
 
             ArrayList<HHiragana> locHiraganaList = new ArrayList<HHiragana>();
 
-            for (int i=0; i<hiraganaList.size(); i++)
+            for (int i=1; i<(hiraganaList.size() + 1); i++)
             {
-                Hiragana records = hiraganaRepository.getById((long)i);
+                Hiragana records = hiraganaRepository.getOne(i);
                 HHiragana locRecords = new HHiragana(records);
                 locHiraganaList.add(locRecords);
             }

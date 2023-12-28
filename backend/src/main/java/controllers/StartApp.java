@@ -42,7 +42,8 @@ public class StartApp implements CommandLineRunner {
             System.out.println(hiraganaList.get(i).toString());
 	}
 
-        System.out.println(repo2.findById((long) 1).toString());
+        System.out.println(repo2.findById(1).toString());
+        System.out.println(repo2.findById(2).toString());
         
     }
 

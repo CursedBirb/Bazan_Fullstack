@@ -6,7 +6,7 @@ import lombok.Data;
 @Data //Adnotacja @Data wystarczy aby Lombok wygenerował getery, setery, toString, equals i inne
 public class LLatestScores {
         
-    private Long id;
+    private int id;
     private String username;
     private Long hiraganaScore1;
     private Long hiraganaScore2;
@@ -15,7 +15,7 @@ public class LLatestScores {
     private Long katakanaScore2;
     private Long katakanaScore3;
     
-    public LLatestScores(Long id, String username, Long hiraganaScore1, Long hiraganaScore2, Long hiraganaScore3, Long katakanaScore1, Long katakanaScore2, Long katakanaScore3) {
+    public LLatestScores(int id, String username, Long hiraganaScore1, Long hiraganaScore2, Long hiraganaScore3, Long katakanaScore1, Long katakanaScore2, Long katakanaScore3) {
         this.id = id;
         this.username = username;
         this.hiraganaScore1 = hiraganaScore1;
@@ -38,7 +38,7 @@ public class LLatestScores {
     }
     
     public LLatestScores(String errorText) {
-        this.id = (long) -1.0;
+        this.id = -1;
         this.username = errorText;
         this.hiraganaScore1 = (long) 0.0;
         this.hiraganaScore2 = (long) 0.0;
@@ -49,7 +49,7 @@ public class LLatestScores {
     }
 
     public LLatestScores() {
-        this.id = (long) -1;
+        this.id = -1;
         this.username = "brak";
         this.hiraganaScore1 = (long) -32;
         this.hiraganaScore2 = (long) -32;

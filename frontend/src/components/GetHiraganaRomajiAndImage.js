@@ -64,8 +64,12 @@ export default function GetHiraganaRomajiAndImage() {
 
     const incrementTarget = () => {
 
-        setTargetNumberOfLetter(targetNumberOfLetter + 1);
-        getRecordById();
+        setTargetNumberOfLetter((prevTarget) => {
+            
+            getRecordById();
+            return prevTarget + 1;
+
+        });
 
     };
 
@@ -73,7 +77,7 @@ export default function GetHiraganaRomajiAndImage() {
 
         getRecordById();
 
-    }, []);
+    }, [targetNumberOfLetter]);
 
     return (
 

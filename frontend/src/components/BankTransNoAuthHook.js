@@ -42,11 +42,11 @@ export default function BankTransNoAuthHook() {
                     setStatus(text);
                 }).catch(err => {
                     let myerror = "Błąd połaczenia sieciowego." + err;
-                    setStatus(myerror);                    
+                    setStatus(myerror);
                 });
         }
         else {
-            setStatus("Żadna z danych wstawianego przelewu nie może być pusta");            
+            setStatus("Żadna z danych wstawianego przelewu nie może być pusta");
         }
     }
 
@@ -69,20 +69,20 @@ export default function BankTransNoAuthHook() {
                     if (firstPartText !== "ERROR:") {
                         transferListText = transferListText + lid + ", " + lclientname + ", " + ldate + ", " + ldescription + ", " + lamount + "\n";
                         setTextArea(transferListText);
-                        setStatus("OK");                        
+                        setStatus("OK");
                     }
                     else {
                         let secondPartText = lclientname.substring(("ERROR:").length, lclientname.length);
                         transferListText = lclientname + "\n";
                         setTextArea(transferListText);
-                        setStatus(secondPartText);                                                
+                        setStatus(secondPartText);
                     }
                 })
 
             }).catch(err => {
 
                 let myerror = "Błąd połaczenia sieciowego." + err;
-                setStatus(myerror);                                                                
+                setStatus(myerror);
             });
 
     }
@@ -99,14 +99,14 @@ export default function BankTransNoAuthHook() {
             )
                 .then(response => {
                     let text = response.data;
-                    setStatus(text);                                            
+                    setStatus(text);
                 }).catch(err => {
                     let myerror = "Błąd połaczenia sieciowego." + err;
-                    setStatus(myerror);                                                                
+                    setStatus(myerror);
                 });
         }
         else {
-            setStatus("ID przelewu nie może być puste");                                                                            
+            setStatus("ID przelewu nie może być puste");
         }
     }
 

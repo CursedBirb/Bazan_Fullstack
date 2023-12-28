@@ -40,7 +40,7 @@ public class ScoreController {
     LatestScoresRepository latestScoresRepository;
     
     @RequestMapping(value = "/getlatestscore", method = RequestMethod.POST)
-    public ResponseEntity<ArrayList<LLatestScores>> getTransfers(ServletRequest request) {
+    public ResponseEntity<ArrayList<LLatestScores>> getScores(ServletRequest request) {
 
         try
         {

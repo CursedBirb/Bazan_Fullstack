@@ -1,13 +1,17 @@
 package controllers.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import controllers.models.Hiragana;
 
-public interface HiraganaRepository extends JpaRepository<Hiragana, Long> {
+@Repository
+public interface HiraganaRepository extends JpaRepository<Hiragana, Integer> {
 
     public Hiragana findById(int id);
     // Dodać metody zapytań
+
+    //public Hiragana get(int i);
     
     //List<sHiragana> findByHiragana_romaji(String hiragana_romaji);
 

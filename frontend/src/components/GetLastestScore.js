@@ -16,7 +16,6 @@ export default function GetLatestScores() {
         await axios.post(`${backendUrl}/api/v1/getlatestscore/`)
             .then(response => {
                 console.log(response.data);
-                let idFound = false;
 
                 let scoresListText = ""
 
@@ -34,7 +33,7 @@ export default function GetLatestScores() {
 
 
                     if (firstPartText !== "ERROR:") {
-                        scoresListText = `${lid}, ${lusername}, ${lhiraganaScore1}, ${lhiraganaScore2}, ${lhiraganaScore3}, ${lkatakanaScore1}, ${lkatakanaScore2}, ${lkatakanaScore3}\n`;
+                        scoresListText += `${lid}, ${lusername}, ${lhiraganaScore1}, ${lhiraganaScore2}, ${lhiraganaScore3}, ${lkatakanaScore1}, ${lkatakanaScore2}, ${lkatakanaScore3}\n`;
                         setTextArea(scoresListText);
                         setStatus("OK");
                     }

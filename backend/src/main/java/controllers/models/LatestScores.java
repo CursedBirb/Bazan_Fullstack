@@ -7,17 +7,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "latest_scores")
-@Getter @Setter
 public class LatestScores {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+    @Column(name = "id")
+    private int id;
 
     @Column(name = "username")
     private String username;
@@ -40,7 +40,15 @@ public class LatestScores {
     @Column(name = "katakana_score_3")
     private Long katakanaScore3;
     
-    protected LatestScores() {
+    public LatestScores() {
+
+        this.username = "brak";
+        this.hiraganaScore1 = (long) -32.0;
+        this.hiraganaScore2 = (long) -32.0;
+        this.hiraganaScore3 = (long) -32.0;
+        this.katakanaScore1 = (long) -32.0;
+        this.katakanaScore2 = (long) -32.0;
+        this.katakanaScore3 = (long) -32.0;
 
     }
 
@@ -54,76 +62,6 @@ public class LatestScores {
         this.katakanaScore2 = katakanaScore2;
         this.katakanaScore3 = katakanaScore3;
 
-    }
-
-    public Long getId() {
-        return id;
-
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Long getHiraganaScore1() {
-        return hiraganaScore1;
-    }
-
-    public void setHiraganaScore1(Long hiraganaScore1) {
-        this.hiraganaScore1 = hiraganaScore1;
-    }
-
-    public Long getHiraganaScore2() {
-        return hiraganaScore2;
-    }
-
-    public void setHiraganaScore2(Long hiraganaScore2) {
-        this.hiraganaScore2 = hiraganaScore2;
-    }
-
-    public Long getHiraganaScore3() {
-        return hiraganaScore3;
-    }
-
-    public void setHiraganaScore3(Long hiraganaScore3) {
-        this.hiraganaScore3 = hiraganaScore3;
-    }
-
-    public Long getKatakanaScore1() {
-        return katakanaScore1;
-    }
-
-    public void setKatakanaScore1(Long katakanaScore1) {
-        this.katakanaScore1 = katakanaScore1;
-    }
-
-    public Long getKatakanaScore2() {
-        return katakanaScore2;
-    }
-
-    public void setKatakanaScore2(Long katakanaScore2) {
-        this.katakanaScore2 = katakanaScore2;
-    }
-
-    public Long getKatakanaScore3() {
-        return katakanaScore3;
-    }
-
-    public void setKatakanaScore3(Long katakanaScore3) {
-        this.katakanaScore3 = katakanaScore3;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("[%s - %s - %s - %s - %s - %s - %s - %s]", id, username, hiraganaScore1, hiraganaScore2, hiraganaScore3, katakanaScore1, katakanaScore2, katakanaScore3);
     }
 
 }
