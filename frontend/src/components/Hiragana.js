@@ -1,42 +1,79 @@
-import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useEffect, useState } from "react";
 
-const backendUrl = 'http://localhost:8001';
-const HiraganaList = () => {
-  const [hiraganaList, setHiraganaList] = useState([]);
+export default function GetLatestScores() {
 
-  useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        const response = await fetch(`${backendUrl}/api/v1/getHiraganaRecord`);
-        const data = await response.json();
-        console.log('Fetched data:', data);
-        setHiraganaList(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+  const backendUrl = 'http://localhost:8081';
+  const [targetNumberOfLetter, setTargetNumberOfLetter] = useState("Ka");
+  const [status, setStatus] = useState("OK");
+  const [image, setImage] = useState("Brak Zdjęcia");
+  const [romaji, setRomaji] = useState("Brak Litery");
+
+    async function getRecordById() {
+
+        await axios.post(`${backendUrl}/api/v1/gethiraganarecord/`)
+            .then(response => {
+                console.log(response.data);
+                let idFound = false;
+
+
+                response.data.forEach((e) => {
+                    let lid = e.id;
+                    let lhiraganaRomaji = e.hiraganaRomaji;
+                    let lhiraganaImage = e.hiraganaImage;
+
+                    let firstPartText = lhiraganaRomaji.substring(0, "ERROR:".length);
+
+
+                    if (firstPartText !== "ERROR:") {
+                        setStatus("OK");
+                        setRomaji(`${lhiraganaRomaji}`);
+                        setImage(`${lhiraganaImage}`);
+                        idFound = true;
+                    }
+                    else {
+                        let secondPartText = lhiraganaRomaji.substring("ERROR:".length, lhiraganaRomaji.length);
+                        setStatus(secondPartText);
+                        setRomaji(secondPartText);
+                        idFound = true;
+                    }
+                })
+
+            }).catch(err => {
+
+                let myerror = "Błąd połaczenia sieciowego." + err;
+                setStatus(myerror);
+            });
+
+    }
+
+    const incrementTarget = () => {
+
+        setTargetNumberOfLetter(targetNumberOfLetter + 1);
+        getRecordById();
+
     };
 
-    fetchItems();
-  }, []);
+    useEffect(() => {
 
-  return (
-    <div>
-      <h2>Hiragana List</h2>
-      <pre>{JSON.stringify(hiraganaList, null, 2)}</pre>
-    </div>
-  );
-};
+        getRecordById();
 
-export default HiraganaList;
+    }, []);
 
-{/* <h1>Lista znaków hiragany</h1>
-<ul>{this.state.hiraganaList.map((hiragana) => (
-  <li key={hiragana.id}>
-    <p>{hiragana.hiraganaName}</p>
-    {/* <img src={hiragana.hiraganaImage} alt={hiragana.hiraganaName} />
-  </li>
-))}
-</ul>
+    return (
 
-<button onClick={this.sendDataToBackend}>Send Data to Backend</button>
-<p>Back message from the backend: {this.state.message2}</p> */}
+      <div>
+
+      <button onClick={incrementTarget}>Pobierz Wynik</button>
+
+      <p>{targetNumberOfLetter}</p>
+      <p>{status}</p>
+      <p>{romaji}</p>
+      <p>{image}</p>
+
+  </div>
+
+    );
+
+}

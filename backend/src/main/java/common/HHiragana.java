@@ -30,7 +30,7 @@ public class HHiragana {
     }
 
     public HHiragana() {
-        this.id = (long) -1;
+        this.id = (long) 0.0;
         this.hiraganaRomaji = "brak";
         this.hiraganaImage = "brak";
     }

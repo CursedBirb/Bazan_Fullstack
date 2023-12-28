@@ -15,14 +15,16 @@ export default function GetHiraganaRomajiAndImage() {
         try {
 
             const response = await axios.post(`${backendUrl}/api/v1/gethiraganarecord/`);
+            console.log(response.data);
             let idFound = false;
     
-            //response.data.forEach((e) => {
-            for (let i = 1; i < (47); i++) {
+            response.data.forEach((e) => {
+            // for (let i = 1; i < (47); i++) {
+            //     let e = response.data[i];
 
-                let lid = i.id;
-                let lhiraganaRomaji = i.hiraganaRomaji;
-                let lhiraganaImage = i.hiraganaImage;
+                let lid = e.id;
+                let lhiraganaRomaji = e.hiraganaRomaji;
+                let lhiraganaImage = e.hiraganaImage;
         
                 let firstPartText = lhiraganaRomaji.substring(0, "ERROR:".length);
         
@@ -40,8 +42,8 @@ export default function GetHiraganaRomajiAndImage() {
                     setRomaji(secondPartText);
                     idFound = true;
                 }
-            //});
-            }
+            });
+            //}
     
             if (!idFound) {
 

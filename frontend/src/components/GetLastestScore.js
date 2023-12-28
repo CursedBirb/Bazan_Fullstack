@@ -15,6 +15,8 @@ export default function GetLatestScores() {
 
         await axios.post(`${backendUrl}/api/v1/getlatestscore/`)
             .then(response => {
+                console.log(response.data);
+                let idFound = false;
 
                 let scoresListText = ""
 
