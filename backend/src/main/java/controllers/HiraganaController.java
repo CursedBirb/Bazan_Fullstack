@@ -41,9 +41,9 @@ public class HiraganaController {
 
             ArrayList<HHiragana> locHiraganaList = new ArrayList<HHiragana>();
 
-            for (int i=1; i<(hiraganaList.size() + 1); i++)
+            for (int i=0; i<hiraganaList.size(); i++)
             {
-                Hiragana records = hiraganaRepository.getOne(i);
+                Hiragana records = hiraganaList.get(i);
                 HHiragana locRecords = new HHiragana(records);
                 locHiraganaList.add(locRecords);
             }
