@@ -15,6 +15,7 @@ export default function GetHiraganaRomajiAndImage() {
     const [correctAnswer, setCorrectAnswer] = useState(0);
     const [answer, setAnswer] = useState("");
     const [wasClicked, setWasClicked] = useState(false);
+    const randomCorrectAnswer = Math.floor(Math.random() * 4);
 
     async function getRecordById() {
 
@@ -70,9 +71,7 @@ export default function GetHiraganaRomajiAndImage() {
 
     const incrementTarget = () => {
 
-        setAnswer("");
-        // buttons[0] = "W";
-        console.log(buttons);
+        initializeValues();
 
         setTargetNumberOfLetter((prevTarget) => {
             
@@ -81,9 +80,21 @@ export default function GetHiraganaRomajiAndImage() {
 
         });
 
-        
+        setScore((prevTarget) => {
 
-        
+            return prevTarget +1;
+
+        });
+
+    };
+
+    const initializeValues = () => {
+
+        setAnswer("");
+        setCorrectAnswer(randomCorrectAnswer);
+        buttons[correctAnswer] = romaji;
+        console.log(buttons);
+        console.log(score);
 
     };
 
@@ -109,8 +120,9 @@ export default function GetHiraganaRomajiAndImage() {
     useEffect(() => {
 
         getRecordById();
+        // initializeValues();
 
-    }, [targetNumberOfLetter, answer]);
+    }, [targetNumberOfLetter, answer, romaji]);
 
     const collectScore = () => {
 
