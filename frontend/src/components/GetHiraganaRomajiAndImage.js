@@ -70,6 +70,10 @@ export default function GetHiraganaRomajiAndImage() {
 
     const incrementTarget = () => {
 
+        setAnswer("");
+        // buttons[0] = "W";
+        console.log(buttons);
+
         setTargetNumberOfLetter((prevTarget) => {
             
             getRecordById();
@@ -77,24 +81,22 @@ export default function GetHiraganaRomajiAndImage() {
 
         });
 
-        setWasClicked(false);
+        
 
-        // buttons[0] = "W";
-        console.log(buttons);
+        
 
     };
 
-    const checkIfCorrectAnswer = () => {
+    const checkIfCorrectAnswer = (index) => {
         
-        setWasClicked(true);
         console.log(correctAnswer);
         console.log(wasClicked);
 
-        if (buttons.index === correctAnswer && wasClicked === true) {
+        if (index === correctAnswer) {
 
             setAnswer("Prawidłowa odpowiedź");
 
-        } else if (buttons.index !== correctAnswer && wasClicked === true) {
+        } else if (index !== correctAnswer) {
         
             setAnswer("Nieprawidłowa odpowiedź");
 
@@ -126,7 +128,7 @@ export default function GetHiraganaRomajiAndImage() {
             <p>{image}</p>
 
             {buttons.map((button, index) => (
-                <button key={index} onClick={checkIfCorrectAnswer}>
+                <button key={index} onClick={() => checkIfCorrectAnswer(index)}>
                     {button}
                 </button>
             ))}
