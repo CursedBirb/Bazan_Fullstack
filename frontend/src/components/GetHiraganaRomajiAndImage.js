@@ -9,6 +9,12 @@ export default function GetHiraganaRomajiAndImage() {
     const [status, setStatus] = useState("OK");
     const [image, setImage] = useState("Brak Zdjęcia");
     const [romaji, setRomaji] = useState("Brak Litery");
+    const [score, setScore] = useState(0);
+    const [wolololo] = useState("Wolololo");
+    const buttons = ["Wolololo", "No Wolololo", "Would Wolololo", "Will Wolololo"];
+    const [correctAnswer, setCorrectAnswer] = useState(0);
+    const [answer, setAnswer] = useState("");
+    const [wasClicked, setWasClicked] = useState(false);
 
     async function getRecordById() {
 
@@ -71,13 +77,42 @@ export default function GetHiraganaRomajiAndImage() {
 
         });
 
+        setWasClicked(false);
+
+        // buttons[0] = "W";
+        console.log(buttons);
+
     };
+
+    const checkIfCorrectAnswer = () => {
+        
+        setWasClicked(true);
+        console.log(correctAnswer);
+        console.log(wasClicked);
+
+        if (buttons.index === correctAnswer && wasClicked === true) {
+
+            setAnswer("Prawidłowa odpowiedź");
+
+        } else if (buttons.index !== correctAnswer && wasClicked === true) {
+        
+            setAnswer("Nieprawidłowa odpowiedź");
+
+        }
+
+    };
+
+    
 
     useEffect(() => {
 
         getRecordById();
 
-    }, [targetNumberOfLetter]);
+    }, [targetNumberOfLetter, answer]);
+
+    const collectScore = () => {
+
+    }
 
     return (
 
@@ -89,6 +124,14 @@ export default function GetHiraganaRomajiAndImage() {
             <p>{status}</p>
             <p>{romaji}</p>
             <p>{image}</p>
+
+            {buttons.map((button, index) => (
+                <button key={index} onClick={checkIfCorrectAnswer}>
+                    {button}
+                </button>
+            ))}
+
+            <p>{answer}</p>
 
         </div>
 
