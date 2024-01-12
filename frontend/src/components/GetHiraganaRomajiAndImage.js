@@ -11,11 +11,12 @@ export default function GetHiraganaRomajiAndImage() {
     const [romaji, setRomaji] = useState("Brak Litery");
     const [score, setScore] = useState(0);
     const [wolololo] = useState("Wolololo");
-    const buttons = ["Wolololo", "No Wolololo", "Would Wolololo", "Will Wolololo"];
+    const [buttons, setButtons] = useState(["Wolololo", "No Wolololo", "Would Wolololo", "Will Wolololo"]);
     const [correctAnswer, setCorrectAnswer] = useState(0);
     const [answer, setAnswer] = useState("");
     const [wasClicked, setWasClicked] = useState(false);
     const randomCorrectAnswer = Math.floor(Math.random() * 4);
+    const randomWrongAnswer = Math.floor(Math.random() * 46) +1;
 
     async function getRecordById() {
 
@@ -71,10 +72,10 @@ export default function GetHiraganaRomajiAndImage() {
 
     const incrementTarget = () => {
 
-        initializeValues();
+        
 
         setTargetNumberOfLetter((prevTarget) => {
-            
+            initializeValues();
             getRecordById();
             return prevTarget + 1;
 
@@ -90,10 +91,20 @@ export default function GetHiraganaRomajiAndImage() {
 
     const initializeValues = () => {
 
+        for (let i=0; i<buttons.length; i++){
+
+            const newWrongButtons = [...buttons];
+            newWrongButtons[i] = randomWrongAnswer;
+            setButtons(newWrongButtons);
+
+        }
         setAnswer("");
         setCorrectAnswer(randomCorrectAnswer);
-        buttons[correctAnswer] = romaji;
-        console.log(buttons);
+        const newButtons = [...buttons];
+        newButtons[correctAnswer] = romaji;
+        setButtons(newButtons);
+
+        console.log(newButtons);
         console.log(score);
 
     };
@@ -122,7 +133,13 @@ export default function GetHiraganaRomajiAndImage() {
         getRecordById();
         // initializeValues();
 
-    }, [targetNumberOfLetter, answer, romaji]);
+    }, [targetNumberOfLetter]);
+
+    useEffect(() => {
+
+
+
+    }, [buttons]);
 
     const collectScore = () => {
 
