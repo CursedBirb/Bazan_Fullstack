@@ -10,7 +10,6 @@ export default function GetHiraganaRomajiAndImage() {
     const [image, setImage] = useState("Brak Zdjęcia");
     const [romaji, setRomaji] = useState("Brak Litery");
     const [score, setScore] = useState(0);
-    const [wolololo] = useState("Wolololo");
     const [buttons, setButtons] = useState(["Wolololo", "No Wolololo", "Would Wolololo", "Will Wolololo"]);
     const [correctAnswer, setCorrectAnswer] = useState(0);
     const [answer, setAnswer] = useState("");
@@ -67,45 +66,55 @@ export default function GetHiraganaRomajiAndImage() {
         }
 
     }
-    
-    // Wywołanie funkcji z konkretnym username (np. 'john_doe')
+
+    useEffect(() => {
+
+        getRecordById();
+        initializeValues();
+        console.log(buttons);
+
+    }, []);
+
+    useEffect(() => {
+
+        getRecordById();
+        // initializeValues();
+
+    }, [targetNumberOfLetter]);
 
     const incrementTarget = () => {
 
-        
-
         setTargetNumberOfLetter((prevTarget) => {
-            initializeValues();
-            getRecordById();
+
+            // getRecordById();
+            
             return prevTarget + 1;
 
         });
 
-        setScore((prevTarget) => {
-
-            return prevTarget +1;
-
-        });
+        getRecordById();
+        initializeValues();
 
     };
 
     const initializeValues = () => {
 
-        for (let i=0; i<buttons.length; i++){
+        // for (let i=0; i<buttons.length; i++){
 
-            const newWrongButtons = [...buttons];
-            newWrongButtons[i] = randomWrongAnswer;
-            setButtons(newWrongButtons);
+        //     const newWrongButtons = [...buttons];
+        //     newWrongButtons[i] = randomWrongAnswer;
+        //     setButtons(newWrongButtons);
 
-        }
+        // }
+
         setAnswer("");
         setCorrectAnswer(randomCorrectAnswer);
         const newButtons = [...buttons];
         newButtons[correctAnswer] = romaji;
         setButtons(newButtons);
 
-        console.log(newButtons);
-        console.log(score);
+        console.log(buttons);
+        console.log("Your score is " + score);
 
     };
 
@@ -118,6 +127,12 @@ export default function GetHiraganaRomajiAndImage() {
 
             setAnswer("Prawidłowa odpowiedź");
 
+            setScore((prevTarget) => {
+
+                return prevTarget +1;
+    
+            });
+
         } else if (index !== correctAnswer) {
         
             setAnswer("Nieprawidłowa odpowiedź");
@@ -125,25 +140,6 @@ export default function GetHiraganaRomajiAndImage() {
         }
 
     };
-
-    
-
-    useEffect(() => {
-
-        getRecordById();
-        // initializeValues();
-
-    }, [targetNumberOfLetter]);
-
-    useEffect(() => {
-
-
-
-    }, [buttons]);
-
-    const collectScore = () => {
-
-    }
 
     return (
 
