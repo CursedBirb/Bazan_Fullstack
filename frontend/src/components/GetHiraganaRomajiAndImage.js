@@ -9,8 +9,6 @@ export default function GetHiraganaRomajiAndImage() {
     const [status, setStatus] = useState("OK");
     const [image, setImage] = useState("Brak Zdjęcia");
     const [romaji, setRomaji] = useState("Brak Litery");
-    const [image2, setImage2] = useState("Brak Zdjęcia");
-    const [romaji2, setRomaji2] = useState("Brak Litery");
     const [score, setScore] = useState(0);
     const [buttons, setButtons] = useState(["Wolololo", "No Wolololo", "Would Wolololo", "Will Wolololo"]);
     const [correctAnswer, setCorrectAnswer] = useState(0);
@@ -54,16 +52,6 @@ export default function GetHiraganaRomajiAndImage() {
                     idFound = true;
                 }
 
-                if (firstPartText !== "ERROR:" && parseInt(lid, 10) === (targetNumberOfLetter /*- 1*/)) {
-
-                    setStatus("OK");
-                    setRomaji(`${lhiraganaRomaji}`);
-                    setImage(`${lhiraganaImage}`);
-                    // setRomaji2(`${lhiraganaRomaji}`);
-                    // setImage2(`${lhiraganaImage}`);
-                    idFound = true;
-
-                }
             });
             //}
     
@@ -168,8 +156,6 @@ export default function GetHiraganaRomajiAndImage() {
             <p>{status}</p>
             <p>{romaji}</p>
             <p>{image}</p>
-            {/* <p>{romaji2}</p>
-            <p>{image2}</p> */}
 
             {buttons.map((button, index) => (
                 <button key={index} onClick={() => checkIfCorrectAnswer(index)}>
