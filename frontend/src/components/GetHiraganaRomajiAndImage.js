@@ -9,6 +9,8 @@ export default function GetHiraganaRomajiAndImage() {
     const [status, setStatus] = useState("OK");
     const [image, setImage] = useState("Brak Zdjęcia");
     const [romaji, setRomaji] = useState("Brak Litery");
+    const [image2, setImage2] = useState("Brak Zdjęcia");
+    const [romaji2, setRomaji2] = useState("Brak Litery");
     const [score, setScore] = useState(0);
     const [buttons, setButtons] = useState(["Wolololo", "No Wolololo", "Would Wolololo", "Will Wolololo"]);
     const [correctAnswer, setCorrectAnswer] = useState(0);
@@ -42,12 +44,25 @@ export default function GetHiraganaRomajiAndImage() {
                     setImage(`${lhiraganaImage}`);
                     idFound = true;
 
+                    initializeValues();
+
                 } else if (firstPartText === "ERROR:" && parseInt(lid, 10) === targetNumberOfLetter) {
 
                     let secondPartText = lhiraganaRomaji.substring("ERROR:".length, lhiraganaRomaji.length);
                     setStatus(secondPartText);
                     setRomaji(secondPartText);
                     idFound = true;
+                }
+
+                if (firstPartText !== "ERROR:" && parseInt(lid, 10) === (targetNumberOfLetter /*- 1*/)) {
+
+                    setStatus("OK");
+                    setRomaji(`${lhiraganaRomaji}`);
+                    setImage(`${lhiraganaImage}`);
+                    // setRomaji2(`${lhiraganaRomaji}`);
+                    // setImage2(`${lhiraganaImage}`);
+                    idFound = true;
+
                 }
             });
             //}
@@ -67,20 +82,19 @@ export default function GetHiraganaRomajiAndImage() {
 
     }
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        getRecordById();
-        initializeValues();
-        console.log(buttons);
+    //     getRecordById();
+    //     console.log("Właściwy przycisk to: " + buttons[correctAnswer]);
 
-    }, []);
+    // }, []);
 
     useEffect(() => {
 
         getRecordById();
         // initializeValues();
 
-    }, [targetNumberOfLetter]);
+    }, [romaji]);
 
     const incrementTarget = () => {
 
@@ -92,10 +106,17 @@ export default function GetHiraganaRomajiAndImage() {
 
         });
 
-        getRecordById();
-        initializeValues();
+        // setCorrectAnswer(randomCorrectAnswer);
+        // getRecordById();
 
     };
+
+    useEffect(() => {
+
+        setCorrectAnswer(randomCorrectAnswer);
+        getRecordById();
+
+    }, [targetNumberOfLetter]);
 
     const initializeValues = () => {
 
@@ -106,22 +127,18 @@ export default function GetHiraganaRomajiAndImage() {
         //     setButtons(newWrongButtons);
 
         // }
-
+        
         setAnswer("");
-        setCorrectAnswer(randomCorrectAnswer);
+        // setCorrectAnswer(randomCorrectAnswer);
         const newButtons = [...buttons];
         newButtons[correctAnswer] = romaji;
         setButtons(newButtons);
-
-        console.log(buttons);
+        console.log("Właściwy przycisk to: " + buttons[correctAnswer]);
         console.log("Your score is " + score);
 
     };
 
     const checkIfCorrectAnswer = (index) => {
-        
-        console.log(correctAnswer);
-        console.log(wasClicked);
 
         if (index === correctAnswer) {
 
@@ -151,6 +168,8 @@ export default function GetHiraganaRomajiAndImage() {
             <p>{status}</p>
             <p>{romaji}</p>
             <p>{image}</p>
+            {/* <p>{romaji2}</p>
+            <p>{image2}</p> */}
 
             {buttons.map((button, index) => (
                 <button key={index} onClick={() => checkIfCorrectAnswer(index)}>
