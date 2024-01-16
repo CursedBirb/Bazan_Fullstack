@@ -1,6 +1,7 @@
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from "react";
+import letters from './LetterList';
 
 export default function GetHiraganaRomajiAndImage() {
 
@@ -108,25 +109,32 @@ export default function GetHiraganaRomajiAndImage() {
 
     const initializeValues = () => {
 
-        // for (let i=0; i<buttons.length; i++){
+        buttons.forEach((e) => {
 
-        //     const newWrongButtons = [...buttons];
-        //     newWrongButtons[i] = randomWrongAnswer;
-        //     setButtons(newWrongButtons);
+            const newWrongButtons = [...buttons];
+            newWrongButtons[e] = letters[randomWrongAnswer];
+            setButtons(newWrongButtons);
 
-        // }
+        });
         
         setAnswer("");
         // setCorrectAnswer(randomCorrectAnswer);
         const newButtons = [...buttons];
         newButtons[correctAnswer] = romaji;
         setButtons(newButtons);
+        setWasClicked(false);
         console.log("Właściwy przycisk to: " + buttons[correctAnswer]);
         console.log("Your score is " + score);
 
     };
 
     const checkIfCorrectAnswer = (index) => {
+
+        if(wasClicked === true) {
+
+            return;
+
+        }
 
         if (index === correctAnswer) {
 
@@ -143,6 +151,8 @@ export default function GetHiraganaRomajiAndImage() {
             setAnswer("Nieprawidłowa odpowiedź");
 
         }
+
+        setWasClicked(true);
 
     };
 
