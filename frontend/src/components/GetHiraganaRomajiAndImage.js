@@ -16,7 +16,8 @@ export default function GetHiraganaRomajiAndImage() {
     const [answer, setAnswer] = useState("");
     const [wasClicked, setWasClicked] = useState(false);
     const randomCorrectAnswer = Math.floor(Math.random() * 4);
-    const randomWrongAnswer = Math.floor(Math.random() * 46) +1;
+    const randomWrongAnswer = Math.floor(Math.random() * 46 + 1);
+    const [wrongAnswers, setWrongAnswers] = useState([12, 6, 7, 23]);
 
     async function getRecordById() {
 
@@ -71,13 +72,6 @@ export default function GetHiraganaRomajiAndImage() {
 
     }
 
-    // useEffect(() => {
-
-    //     getRecordById();
-    //     console.log("Właściwy przycisk to: " + buttons[correctAnswer]);
-
-    // }, []);
-
     useEffect(() => {
 
         getRecordById();
@@ -89,41 +83,39 @@ export default function GetHiraganaRomajiAndImage() {
 
         setTargetNumberOfLetter((prevTarget) => {
 
-            // getRecordById();
-            
             return prevTarget + 1;
 
         });
-
-        // setCorrectAnswer(randomCorrectAnswer);
-        // getRecordById();
 
     };
 
     useEffect(() => {
 
         setCorrectAnswer(randomCorrectAnswer);
+
+        generateRandomWrongAnswers();
         getRecordById();
 
     }, [targetNumberOfLetter]);
 
     const initializeValues = () => {
 
-        buttons.forEach((e) => {
+        generateRandomWrongAnswers();
 
-            const newWrongButtons = [...buttons];
-            newWrongButtons[e] = letters[randomWrongAnswer];
-            setButtons(newWrongButtons);
+        const newButtons = [...buttons];
 
-        });
+        for (let i = 0; i <= 3; i++) {
+
+            newButtons[i] = letters[wrongAnswers[i]];
+            console.log(letters[randomWrongAnswer]);
+
+        }
         
         setAnswer("");
         // setCorrectAnswer(randomCorrectAnswer);
-        const newButtons = [...buttons];
         newButtons[correctAnswer] = romaji;
         setButtons(newButtons);
         setWasClicked(false);
-        console.log("Właściwy przycisk to: " + buttons[correctAnswer]);
         console.log("Your score is " + score);
 
     };
@@ -154,6 +146,23 @@ export default function GetHiraganaRomajiAndImage() {
 
         setWasClicked(true);
 
+    };
+
+    const generateRandomWrongAnswers = () => {
+        const uniqueWrongAnswers = [];
+
+        while (uniqueWrongAnswers.length < 5) {
+            const randomWrongAnswer = Math.floor(Math.random() * 46 + 1);
+            
+            
+
+            if (!uniqueWrongAnswers.includes(randomWrongAnswer, targetNumberOfLetter) || (letters[randomWrongAnswer] == romaji) || randomWrongAnswer > 0 || randomWrongAnswer <= 46) {
+                uniqueWrongAnswers.push(randomWrongAnswer);
+                
+            } else console.log("An" + randomWrongAnswer);
+        }
+
+        setWrongAnswers(uniqueWrongAnswers);
     };
 
     return (
