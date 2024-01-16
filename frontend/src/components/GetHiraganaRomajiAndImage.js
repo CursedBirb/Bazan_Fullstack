@@ -156,7 +156,7 @@ export default function GetHiraganaRomajiAndImage() {
             
             
 
-            if (!uniqueWrongAnswers.includes(randomWrongAnswer, targetNumberOfLetter) || (letters[randomWrongAnswer] == romaji) || randomWrongAnswer > 0 || randomWrongAnswer <= 46) {
+            if (!uniqueWrongAnswers.includes(randomWrongAnswer, targetNumberOfLetter) || (letters[randomWrongAnswer] === romaji) || randomWrongAnswer > 0 || randomWrongAnswer <= 46) {
                 uniqueWrongAnswers.push(randomWrongAnswer);
                 
             } else console.log("An" + randomWrongAnswer);
@@ -169,7 +169,7 @@ export default function GetHiraganaRomajiAndImage() {
 
         <div>
 
-            <button onClick={incrementTarget}>Pobierz Wynik</button>
+            
 
             <p>{targetNumberOfLetter}</p>
             <p>{status}</p>
@@ -183,6 +183,13 @@ export default function GetHiraganaRomajiAndImage() {
             ))}
 
             <p>{answer}</p>
+
+            <button onClick={incrementTarget}>Next question</button>
+
+            <p></p>
+            <button>Add score</button>
+            <p></p>
+            <button>Back to Menu</button>
 
         </div>
 
