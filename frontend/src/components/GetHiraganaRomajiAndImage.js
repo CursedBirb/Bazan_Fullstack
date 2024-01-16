@@ -1,6 +1,7 @@
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from "react";
+import letters from './LetterList';
 
 export default function GetHiraganaRomajiAndImage() {
 
@@ -9,6 +10,14 @@ export default function GetHiraganaRomajiAndImage() {
     const [status, setStatus] = useState("OK");
     const [image, setImage] = useState("Brak Zdjęcia");
     const [romaji, setRomaji] = useState("Brak Litery");
+    const [score, setScore] = useState(0);
+    const [buttons, setButtons] = useState(["Wolololo", "No Wolololo", "Would Wolololo", "Will Wolololo"]);
+    const [correctAnswer, setCorrectAnswer] = useState(0);
+    const [answer, setAnswer] = useState("");
+    const [wasClicked, setWasClicked] = useState(false);
+    const randomCorrectAnswer = Math.floor(Math.random() * 4);
+    const randomWrongAnswer = Math.floor(Math.random() * 46 + 1);
+    const [wrongAnswers, setWrongAnswers] = useState([12, 6, 7, 23]);
 
     async function getRecordById() {
 
@@ -35,6 +44,8 @@ export default function GetHiraganaRomajiAndImage() {
                     setImage(`${lhiraganaImage}`);
                     idFound = true;
 
+                    initializeValues();
+
                 } else if (firstPartText === "ERROR:" && parseInt(lid, 10) === targetNumberOfLetter) {
 
                     let secondPartText = lhiraganaRomaji.substring("ERROR:".length, lhiraganaRomaji.length);
@@ -42,6 +53,7 @@ export default function GetHiraganaRomajiAndImage() {
                     setRomaji(secondPartText);
                     idFound = true;
                 }
+
             });
             //}
     
@@ -59,14 +71,18 @@ export default function GetHiraganaRomajiAndImage() {
         }
 
     }
-    
-    // Wywołanie funkcji z konkretnym username (np. 'john_doe')
+
+    useEffect(() => {
+
+        getRecordById();
+        // initializeValues();
+
+    }, [romaji]);
 
     const incrementTarget = () => {
 
         setTargetNumberOfLetter((prevTarget) => {
-            
-            getRecordById();
+
             return prevTarget + 1;
 
         });
@@ -75,20 +91,105 @@ export default function GetHiraganaRomajiAndImage() {
 
     useEffect(() => {
 
+        setCorrectAnswer(randomCorrectAnswer);
+
+        generateRandomWrongAnswers();
         getRecordById();
 
     }, [targetNumberOfLetter]);
+
+    const initializeValues = () => {
+
+        generateRandomWrongAnswers();
+
+        const newButtons = [...buttons];
+
+        for (let i = 0; i <= 3; i++) {
+
+            newButtons[i] = letters[wrongAnswers[i]];
+            console.log(letters[randomWrongAnswer]);
+
+        }
+        
+        setAnswer("");
+        // setCorrectAnswer(randomCorrectAnswer);
+        newButtons[correctAnswer] = romaji;
+        setButtons(newButtons);
+        setWasClicked(false);
+        console.log("Your score is " + score);
+
+    };
+
+    const checkIfCorrectAnswer = (index) => {
+
+        if(wasClicked === true) {
+
+            return;
+
+        }
+
+        if (index === correctAnswer) {
+
+            setAnswer("Prawidłowa odpowiedź");
+
+            setScore((prevTarget) => {
+
+                return prevTarget +1;
+    
+            });
+
+        } else if (index !== correctAnswer) {
+        
+            setAnswer("Nieprawidłowa odpowiedź");
+
+        }
+
+        setWasClicked(true);
+
+    };
+
+    const generateRandomWrongAnswers = () => {
+        const uniqueWrongAnswers = [];
+
+        while (uniqueWrongAnswers.length < 5) {
+            const randomWrongAnswer = Math.floor(Math.random() * 46 + 1);
+            
+            
+
+            if (!uniqueWrongAnswers.includes(randomWrongAnswer, targetNumberOfLetter) || (letters[randomWrongAnswer] === romaji) || randomWrongAnswer > 0 || randomWrongAnswer <= 46) {
+                uniqueWrongAnswers.push(randomWrongAnswer);
+                
+            } else console.log("An" + randomWrongAnswer);
+        }
+
+        setWrongAnswers(uniqueWrongAnswers);
+    };
 
     return (
 
         <div>
 
-            <button onClick={incrementTarget}>Pobierz Wynik</button>
+            
 
             <p>{targetNumberOfLetter}</p>
             <p>{status}</p>
             <p>{romaji}</p>
             <p>{image}</p>
+
+            {buttons.map((button, index) => (
+                <button key={index} onClick={() => checkIfCorrectAnswer(index)}>
+                    {button}
+                </button>
+            ))}
+
+            <p>{answer}</p>
+
+            <button onClick={incrementTarget}>Next question</button>
+
+            <p></p>
+            <button>Add score</button>
+            <p></p>
+            <button>Back to Menu</button>
 
         </div>
 
