@@ -6,10 +6,12 @@ import java.util.List;
 
 import javax.servlet.ServletRequest;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,26 +50,27 @@ public class ScoreController {
             //List<Transfer> latestScoresList = latestScoresRepository.findByUsername(userName);
             List<LatestScores> latestScoresList = latestScoresRepository.findAll();
 
-            if (latestScoresList==null)
-            {
+            if (latestScoresList==null) {
+
                 throw new IllegalArgumentException("Nie ma danych");
             }
 
+
             ArrayList<LLatestScores> locLatestScoresList = new ArrayList<LLatestScores>();
 
-            for (int i=0; i<latestScoresList.size(); i++)
-            {
+            for (int i=0; i<latestScoresList.size(); i++) {
+
                 LatestScores scores = latestScoresList.get(i);
                 LLatestScores locScores = new LLatestScores(scores);
                 locLatestScoresList.add(locScores);
+
             }
 
             ResponseEntity<ArrayList<LLatestScores>> res = new ResponseEntity(locLatestScoresList, HttpStatus.OK);
             return res;
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
+
             ArrayList<LLatestScores> locLatestScoresList = new ArrayList<LLatestScores>();
             LLatestScores locScores = new LLatestScores();
             locScores.setUsername("ERROR:"+e.getMessage());
@@ -75,6 +78,77 @@ public class ScoreController {
             ResponseEntity<ArrayList<LLatestScores>> res = new ResponseEntity(locLatestScoresList, HttpStatus.OK);
             return res;
         }
+    }
+
+    @RequestMapping(value = "/addscore", method = RequestMethod.POST)
+    public ResponseEntity<String> addScore(@RequestBody String jsonString)
+    {
+                    
+        try {
+            
+            JSONObject obj = new JSONObject(jsonString);
+            String username = obj.getString("username");
+            String hiraganaScore1 = obj.getString("hiraganaScore1");
+            String hiraganaScore2 = obj.getString("hiraganaScore2");
+            String hiraganaScore3 = obj.getString("hiraganaScore3");
+            String katakanaScore1 = obj.getString("katakanaScore1");
+            String katakanaScore2 = obj.getString("katakanaScore2");
+            String katakanaScore3 = obj.getString("katakanaScore3");
+
+            LatestScores existingRecord = latestScoresRepository.findByUsername(username);
+
+            if(existingRecord != null) {
+
+                long longExistingRecordH1 = existingRecord.getHiraganaScore1();
+                long longExistingRecordH2 = existingRecord.getHiraganaScore2();
+                long longExistingRecordH3 = existingRecord.getHiraganaScore3();
+                long longExistingRecordK1 = existingRecord.getKatakanaScore1();
+                long longExistingRecordK2 = existingRecord.getKatakanaScore2();
+                long longExistingRecordK3 = existingRecord.getKatakanaScore3();
+
+                if (!hiraganaScore1.equals("-32")) {
+
+                    existingRecord.setHiraganaScore1(Long.parseLong(hiraganaScore1));
+                    
+                }
+
+                if (!hiraganaScore2.equals("-32") || longExistingRecordH1 > 0 ) {
+
+                    existingRecord.setHiraganaScore2(Long.parseLong(hiraganaScore2));
+                    
+                }
+
+                if (!hiraganaScore3.equals("-32") || longExistingRecordH2 > 0 ) {
+
+                    existingRecord.setHiraganaScore3(Long.parseLong(hiraganaScore3));
+                    
+                }
+                
+
+                ResponseEntity<String> res = new ResponseEntity("Dodano przelew", HttpStatus.OK);
+            return res;
+
+            } else {
+
+            LatestScores latest = new LatestScores(username, Long.parseLong(hiraganaScore1), Long.parseLong(hiraganaScore2), Long.parseLong(hiraganaScore3), Long.parseLong(katakanaScore1), Long.parseLong(katakanaScore2), Long.parseLong(katakanaScore3));
+
+            latestScoresRepository.save(latest);
+
+            ResponseEntity<String> res = new ResponseEntity("Dodano przelew", HttpStatus.OK);
+            return res;
+
+            }
+
+            
+
+        } catch (Exception e) {
+
+            String text = new String("ERROR:"+e.getMessage());
+            ResponseEntity<String> res = new ResponseEntity(text, HttpStatus.OK);
+            return res;
+
+        }
+
     }
     
 }

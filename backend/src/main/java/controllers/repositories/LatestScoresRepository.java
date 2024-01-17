@@ -9,5 +9,6 @@ import controllers.models.LatestScores;
 public interface LatestScoresRepository extends JpaRepository<LatestScores, Integer>{
 
     public LatestScores findById(int id);
+    public LatestScores findByUsername(String username);
     
 }
