@@ -89,7 +89,7 @@ public class ScoreController {
             JSONObject obj = new JSONObject(jsonString);
             String username = obj.getString("username");
             String hiraganaScore = obj.getString("hiraganaScore");
-            
+
             LatestScores existingRecord = latestScoresRepository.findByUsername(username);
 
             if(existingRecord != null) {
@@ -116,7 +116,16 @@ public class ScoreController {
                     existingRecord.setHiraganaScore3(Long.parseLong(hiraganaScore));
                     
                 }
+
+                if (longExistingRecordH3 > 0) {
+
+                    existingRecord.setHiraganaScore1(existingRecord.getHiraganaScore2());
+                    existingRecord.setHiraganaScore2(existingRecord.getHiraganaScore3());
+                    existingRecord.setHiraganaScore3(Long.parseLong(hiraganaScore));
+                    
+                }
                 
+                latestScoresRepository.save(existingRecord);
 
                 ResponseEntity<String> res = new ResponseEntity("Dodano przelew", HttpStatus.OK);
             return res;
@@ -178,7 +187,16 @@ public class ScoreController {
                     existingRecord.setKatakanaScore3(Long.parseLong(katakanaScore));
                     
                 }
+
+                if (longExistingRecordK3 > 0) {
+
+                    existingRecord.setKatakanaScore1(existingRecord.getKatakanaScore2());
+                    existingRecord.setKatakanaScore2(existingRecord.getKatakanaScore3());
+                    existingRecord.setKatakanaScore3(Long.parseLong(katakanaScore));
+                    
+                }
                 
+                latestScoresRepository.save(existingRecord);
 
                 ResponseEntity<String> res = new ResponseEntity("Dodano przelew", HttpStatus.OK);
             return res;
