@@ -88,13 +88,8 @@ public class ScoreController {
             
             JSONObject obj = new JSONObject(jsonString);
             String username = obj.getString("username");
-            String hiraganaScore1 = obj.getString("hiraganaScore1");
-            String hiraganaScore2 = obj.getString("hiraganaScore2");
-            String hiraganaScore3 = obj.getString("hiraganaScore3");
-            String katakanaScore1 = obj.getString("katakanaScore1");
-            String katakanaScore2 = obj.getString("katakanaScore2");
-            String katakanaScore3 = obj.getString("katakanaScore3");
-
+            String hiraganaScore = obj.getString("hiraganaScore");
+            String katakanaScore = obj.getString("katakanaScore");
             LatestScores existingRecord = latestScoresRepository.findByUsername(username);
 
             if(existingRecord != null) {
@@ -106,21 +101,21 @@ public class ScoreController {
                 long longExistingRecordK2 = existingRecord.getKatakanaScore2();
                 long longExistingRecordK3 = existingRecord.getKatakanaScore3();
 
-                if (!hiraganaScore1.equals("-32")) {
+                if (!!existingRecord.getHiraganaScore1().equals("-32")) {
 
-                    existingRecord.setHiraganaScore1(Long.parseLong(hiraganaScore1));
+                    existingRecord.setHiraganaScore1(Long.parseLong(hiraganaScore));
                     
                 }
 
-                if (!hiraganaScore2.equals("-32") || longExistingRecordH1 > 0 ) {
+                if (!existingRecord.getHiraganaScore2().equals("-32") || longExistingRecordH1 > 0 ) {
 
-                    existingRecord.setHiraganaScore2(Long.parseLong(hiraganaScore2));
+                    existingRecord.setHiraganaScore2(Long.parseLong(hiraganaScore));
                     
                 }
 
-                if (!hiraganaScore3.equals("-32") || longExistingRecordH2 > 0 ) {
+                if (!existingRecord.getHiraganaScore3().equals("-32") || longExistingRecordH2 > 0 ) {
 
-                    existingRecord.setHiraganaScore3(Long.parseLong(hiraganaScore3));
+                    existingRecord.setHiraganaScore3(Long.parseLong(hiraganaScore));
                     
                 }
                 
