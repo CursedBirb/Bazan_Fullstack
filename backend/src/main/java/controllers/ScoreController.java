@@ -80,8 +80,8 @@ public class ScoreController {
         }
     }
 
-    @RequestMapping(value = "/addscore", method = RequestMethod.POST)
-    public ResponseEntity<String> addScore(@RequestBody String jsonString)
+    @RequestMapping(value = "/addhiraganascore", method = RequestMethod.POST)
+    public ResponseEntity<String> addHiraganaScore(@RequestBody String jsonString)
     {
                     
         try {
@@ -89,7 +89,7 @@ public class ScoreController {
             JSONObject obj = new JSONObject(jsonString);
             String username = obj.getString("username");
             String hiraganaScore = obj.getString("hiraganaScore");
-            String katakanaScore = obj.getString("katakanaScore");
+            
             LatestScores existingRecord = latestScoresRepository.findByUsername(username);
 
             if(existingRecord != null) {
@@ -97,23 +97,21 @@ public class ScoreController {
                 long longExistingRecordH1 = existingRecord.getHiraganaScore1();
                 long longExistingRecordH2 = existingRecord.getHiraganaScore2();
                 long longExistingRecordH3 = existingRecord.getHiraganaScore3();
-                long longExistingRecordK1 = existingRecord.getKatakanaScore1();
-                long longExistingRecordK2 = existingRecord.getKatakanaScore2();
-                long longExistingRecordK3 = existingRecord.getKatakanaScore3();
 
-                if (!!existingRecord.getHiraganaScore1().equals("-32")) {
+
+                if (!!existingRecord.getHiraganaScore1().equals(-32L)) {
 
                     existingRecord.setHiraganaScore1(Long.parseLong(hiraganaScore));
                     
                 }
 
-                if (!existingRecord.getHiraganaScore2().equals("-32") || longExistingRecordH1 > 0 ) {
+                if (!existingRecord.getHiraganaScore2().equals(-32L) || longExistingRecordH1 > 0 ) {
 
                     existingRecord.setHiraganaScore2(Long.parseLong(hiraganaScore));
                     
                 }
 
-                if (!existingRecord.getHiraganaScore3().equals("-32") || longExistingRecordH2 > 0 ) {
+                if (!existingRecord.getHiraganaScore3().equals(-32L) || longExistingRecordH2 > 0 ) {
 
                     existingRecord.setHiraganaScore3(Long.parseLong(hiraganaScore));
                     
@@ -125,7 +123,69 @@ public class ScoreController {
 
             } else {
 
-            LatestScores latest = new LatestScores(username, Long.parseLong(hiraganaScore1), Long.parseLong(hiraganaScore2), Long.parseLong(hiraganaScore3), Long.parseLong(katakanaScore1), Long.parseLong(katakanaScore2), Long.parseLong(katakanaScore3));
+            LatestScores latest = new LatestScores(username, Long.parseLong(hiraganaScore), -32L, -32L, -32L, -32L, -32L);
+
+            latestScoresRepository.save(latest);
+
+            ResponseEntity<String> res = new ResponseEntity("Dodano przelew", HttpStatus.OK);
+            return res;
+
+            }
+
+            
+
+        } catch (Exception e) {
+
+            String text = new String("ERROR:"+e.getMessage());
+            ResponseEntity<String> res = new ResponseEntity(text, HttpStatus.OK);
+            return res;
+
+        }
+
+    }
+
+    @RequestMapping(value = "/addkatakanascore", method = RequestMethod.POST)
+    public ResponseEntity<String> addKatakanaScore(@RequestBody String jsonString)
+    {
+                    
+        try {
+            
+            JSONObject obj = new JSONObject(jsonString);
+            String username = obj.getString("username");
+            String katakanaScore = obj.getString("katakanaScore");
+            LatestScores existingRecord = latestScoresRepository.findByUsername(username);
+
+            if(existingRecord != null) {
+
+                long longExistingRecordK1 = existingRecord.getKatakanaScore1();
+                long longExistingRecordK2 = existingRecord.getKatakanaScore2();
+                long longExistingRecordK3 = existingRecord.getKatakanaScore3();
+
+                if (!!existingRecord.getKatakanaScore1().equals(-32L)) {
+
+                    existingRecord.setKatakanaScore1(Long.parseLong(katakanaScore));
+                    
+                }
+
+                if (!existingRecord.getKatakanaScore2().equals(-32L) || longExistingRecordK1 > 0 ) {
+
+                    existingRecord.setKatakanaScore2(Long.parseLong(katakanaScore));
+                    
+                }
+
+                if (!existingRecord.getKatakanaScore3().equals(-32L) || longExistingRecordK2 > 0 ) {
+
+                    existingRecord.setKatakanaScore3(Long.parseLong(katakanaScore));
+                    
+                }
+                
+
+                ResponseEntity<String> res = new ResponseEntity("Dodano przelew", HttpStatus.OK);
+            return res;
+
+            } else {
+
+            LatestScores latest = new LatestScores(username, -32L, -32L, -32L, Long.parseLong(katakanaScore), -32L, -32L);
 
             latestScoresRepository.save(latest);
 
