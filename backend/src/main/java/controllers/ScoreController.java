@@ -119,8 +119,8 @@ public class ScoreController {
 
                 if (longExistingRecordH3 > 0) {
 
-                    existingRecord.setHiraganaScore1(existingRecord.getHiraganaScore2());
-                    existingRecord.setHiraganaScore2(existingRecord.getHiraganaScore3());
+                    existingRecord.setHiraganaScore1(longExistingRecordH2);
+                    existingRecord.setHiraganaScore2(longExistingRecordH3);
                     existingRecord.setHiraganaScore3(Long.parseLong(hiraganaScore));
                     
                 }

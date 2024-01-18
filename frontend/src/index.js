@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 // import BankTransNoAuthHook from "./components/BankTransNoAuthHook";
+import AddHiraganaScore from './components/AddHiraganaScore';
 import GetHiraganaRomajiAndImage from './components/GetHiraganaRomajiAndImage';
 import GetLatestScores from './components/GetLastestScore';
 
@@ -15,6 +16,8 @@ root.render(
     <GetLatestScores />
     <GetHiraganaRomajiAndImage />
     {/* <Hiraga/> */}
+
+    <AddHiraganaScore />
 
   </React.StrictMode>
 );
