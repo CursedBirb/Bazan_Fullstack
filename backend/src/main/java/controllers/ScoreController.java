@@ -190,8 +190,8 @@ public class ScoreController {
 
                 if (longExistingRecordK3 > 0) {
 
-                    existingRecord.setKatakanaScore1(existingRecord.getKatakanaScore2());
-                    existingRecord.setKatakanaScore2(existingRecord.getKatakanaScore3());
+                    existingRecord.setKatakanaScore1(longExistingRecordK2);
+                    existingRecord.setKatakanaScore2(longExistingRecordK3);
                     existingRecord.setKatakanaScore3(Long.parseLong(katakanaScore));
                     
                 }
