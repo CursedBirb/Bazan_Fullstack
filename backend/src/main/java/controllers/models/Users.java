@@ -1,18 +1,18 @@
 package controllers.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "users")
-@Getter @Setter
 public class Users {
 
     @Id
@@ -27,15 +27,34 @@ public class Users {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "active")
+    private int active;
+
+    @ManyToMany
+    private Set<Roles> roles;
     
     protected Users() {
 
+        // this.email = null;
+        // this.hashedPassword = null;
+        // this.active = 0;
+        // roles = new HashSet<Roles>();
+
     }
 
-    public Users(String username, String hashedPassword, String email) {
+    public Users(String username, String hashedPassword, String email, int active) {
+
         this.username = username;
         this.hashedPassword = hashedPassword;
-        this.email = email;
+        this.email = email.toLowerCase();
+        this.active = active;
+
+        roles = new HashSet<Roles>();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getUsername() {
@@ -55,17 +74,33 @@ public class Users {
     }
 
     public String getEmail() {
-        return email;
+        return email.toLowerCase();
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase();
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    public Set<Roles> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Roles> roles) {
+        this.roles = roles;
     }
 
 
     @Override
     public String toString() {
-        return String.format("[%s - %s - %s]", username, hashedPassword, email);
+        return String.format("[%s - %s - %s - %s - %s]", username, hashedPassword, email, active, roles);
     }
 
 }

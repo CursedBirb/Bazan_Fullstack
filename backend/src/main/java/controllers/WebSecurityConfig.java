@@ -19,19 +19,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception
-    {
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
         
         httpSecurity.cors().and()
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/v1/**").authenticated()
-                .antMatchers("/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic();
+                    .csrf().disable()
+                    .authorizeRequests()
+                    .antMatchers("/api/**").hasAuthority("roleUser")
+                    .antMatchers("/**").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                    .httpBasic();
     }
-
 
     @Autowired
     DataSource dataSource;
@@ -41,15 +39,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    
-        @Override
+    @Override
     protected void configure(AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth.jdbcAuthentication()
+        throws Exception {
+            auth.jdbcAuthentication()
                 .passwordEncoder(new BCryptPasswordEncoder())
                 .dataSource(dataSource)
                 .usersByUsernameQuery("select username, password, active from users where username=?")
-                .authoritiesByUsernameQuery("select username, password, active from users where username=?");
+                .authoritiesByUsernameQuery("select email, role from users u, roles r, users_roles ur where u.id=ur.user_id and ur.roles_id=r.id and email=?");
         
     }
             
