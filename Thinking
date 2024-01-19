@@ -1,0 +1,12 @@
+Ok. So idea is that when you press next button it will make 4 buttons, three will get random value inside and one will get correct value of current question and if one of other three buttons will get the same thing as correct one it needs to reroll. It also needs to be saved on which button correct value was added so we can know when someone got thing right and show next button
+
+Things needed:
+
+- Random from 1 to 46 for not correct values of buttons
+- Random from 1 to 4 to set a correct button
+- If checking other three buttons to see if they have the same value like the correct one
+- If inside if to check that they are not checking the correct button
+- If that checks if button clicked is the one with correct value
+- If the correct button was clicked show next button with a message of saying that they choosen right one
+- If wrong button was clicked show a next button and message that it was a wrong one
+- When next is pressed there is a need to redo the entire thing

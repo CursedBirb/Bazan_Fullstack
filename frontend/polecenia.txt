@@ -1,0 +1,30 @@
+#Tworzenie obrazu dockera
+docker build -t reactkrosno .
+
+#Uruchomienie kontenera
+docker run -d -p 3001:3000 reactkrosno
+
+
+---------------------------------------------
+
+
+#Pokazanie dzia³aj¹cych kontenerów
+docker container ls
+
+#Zatrzymanie kontenera o podanym id
+docker stop dee7be0cdaec
+
+#Zatrzymanie wszystkich kontenerów
+docker stop 
+
+#Usuniecie wszystkich zatrzymanych kontenerow
+docker rm
+
+#Pokazanie dostepnych obrazowe dockera
+docker images
+
+#usuniecie obrazu
+docker rmi <id>
+
+Wszystkie:
+docker rmi
