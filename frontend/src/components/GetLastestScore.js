@@ -11,8 +11,8 @@ export default function GetLatestScores() {
     const [status, setStatus] = useState("OK");
     const [textArea, setTextArea] = useState("Tu powinna być zawartość bazy danych, ale jak nie to mi wciąż nie działa");
 
-    const userName = localStorage.getItem('userName');
-    const password = localStorage.getItem('password');
+    var userName = localStorage.getItem('userName');
+    var password = localStorage.getItem('password');
 
     async function getScore() {
 
@@ -21,9 +21,9 @@ export default function GetLatestScores() {
         var basicAuth = 'Basic ' + etoken;
 
         // await axios.post(`${backendUrl}/api/v1/getlatestscore/`
-        await axios.post(`${backendUrl}/api/v1/getlatestscore/`,
-        {}, { headers: { authorization: basicAuth } }
-        )
+        // await axios.post(`${backendUrl}/api/v1/getlatestscore/`,
+        await axios.post(`${backendUrl}/api/getlatestscore/`,
+        {}, { headers: { authorization: basicAuth } } )
             .then(response => {
                 console.log(response.data);
 

@@ -9,8 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import controllers.models.Hiragana;
-import controllers.models.Roles;
-import controllers.models.Users;
 import controllers.repositories.HiraganaRepository;
 import controllers.repositories.LatestScoresRepository;
 import controllers.repositories.RolesRepository;
@@ -56,17 +54,18 @@ public class StartApp implements CommandLineRunner {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         // String salt = "AChialbysWiedziec";
-        String encodedPassword = encoder.encode("WouldWolololo");
+        String encodedPassword = encoder.encode("rip");
         System.out.println(encodedPassword);
 
-        Users wolololo = new Users("Wolololo", encodedPassword, "Wolololo@wolololo.com", 1);
+        // Users rip = new Users("Rip", encodedPassword, "rip@gmail.com", 1);
 
-        Roles roleUser = repo4.findByRole("roleUser");
+        // repo3.save(rip);
+        // Roles roleUser = repo4.findByRole("ROLE_USER");
 
-        wolololo.getRoles().add(roleUser);
-        roleUser.getUsers().add(wolololo);
+        // rip.getRoles().add(roleUser);
+        // roleUser.getUsers().add(rip);
 
-        // repo3.save(wolololo);
+        // repo3.save(rip);
         // repo4.save(roleUser);
 
         // repo3.save(new Users("Wolololo", encodedPassword, "Wolololo@wolololo.com", 1));

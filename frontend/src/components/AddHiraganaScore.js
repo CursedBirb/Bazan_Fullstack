@@ -13,6 +13,9 @@ export default function AddHiraganaScore() {
     const [newUsername, setNewUsername] = useState("Wolololo");
     const [newHiraganaScore, setNewHiraganaScore] = useState("46");
 
+    let userName = localStorage.getItem('userName');
+    let password = localStorage.getItem('password');
+
 
     //Dodanie przelewu na serwer
     async function addHiraganaScore() {

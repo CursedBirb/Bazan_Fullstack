@@ -38,8 +38,9 @@ import controllers.repositories.LatestScoresRepository;
             allowedHeaders = {"Authorization","Content-Type"},
             maxAge = 3600,
             exposedHeaders = {"Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"})
+// @CrossOrigin(maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class ScoreController {
 
     @Autowired

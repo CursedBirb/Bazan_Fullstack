@@ -19,16 +19,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception {
         
-        httpSecurity.cors().and()
-                    .csrf().disable()
-                    .authorizeRequests()
-                    .antMatchers("/api/**").hasAuthority("roleUser")
-                    .antMatchers("/**").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
-                    .httpBasic();
+        http.cors().and()
+            .csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/api/**").hasAuthority("ROLE_USER")
+            .antMatchers("/**") .permitAll();
+            // .anyRequest().authenticated()
+            // .and()
+            // .httpBasic();
     }
 
     @Autowired
@@ -36,17 +36,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2A);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
         throws Exception {
             auth.jdbcAuthentication()
-                .passwordEncoder(new BCryptPasswordEncoder())
+                .passwordEncoder(new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2A))
                 .dataSource(dataSource)
-                .usersByUsernameQuery("select username, password, active from users where username=?")
-                .authoritiesByUsernameQuery("select email, role from users u, roles r, users_roles ur where u.id=ur.user_id and ur.roles_id=r.id and email=?");
+                .usersByUsernameQuery("select username, hashedPassword, active from users where username=?")
+                .authoritiesByUsernameQuery("select username, role from users u, roles r, users_roles ur where u.id=ur.user_id and ur.roles_id=r.id and username=?");
         
     }
             

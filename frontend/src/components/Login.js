@@ -12,8 +12,8 @@ export default function Login() {
     const [modalNewUsername, setModalNewUsername] = useState("");
     const [modalNewPassword, setModalNewPassword] = useState("");
 
-    const userName = localStorage.getItem('userName');
-    const password = localStorage.getItem('password');
+    var userName = localStorage.getItem('userName');
+    var password = localStorage.getItem('password');
 
     // async function handleLogin() {
     //     let token = userName + ":" + password;
@@ -41,20 +41,20 @@ export default function Login() {
 
         if (currentButton === "OK") {
 
-            localStorage.setItem('userName', JSON.stringify(modalNewUsername));
-            localStorage.setItem('password', JSON.stringify(modalNewPassword));
+            localStorage.setItem('userName', modalNewUsername);
+            localStorage.setItem('password', modalNewPassword);
         }
         else {
-            localStorage.setItem('userName', JSON.stringify(modalNewUsername));
-            localStorage.setItem('password', JSON.stringify(modalNewPassword));
+            localStorage.setItem('userName', modalNewUsername);
+            localStorage.setItem('password', modalNewPassword);
         }
     }
 
     function handleCloseHeader() {
 
         setModalShow(false);
-        localStorage.setItem('userName', JSON.stringify(modalNewUsername));
-        localStorage.setItem('password', JSON.stringify(modalNewPassword));
+        localStorage.setItem('userName', modalNewUsername);
+        localStorage.setItem('password', modalNewPassword);
     }
 
     function handleChangeUser(e) {

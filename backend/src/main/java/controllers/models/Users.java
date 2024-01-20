@@ -12,23 +12,24 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 public class Users {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "USERNAME")
     private String username;
 
-    @Column(name = "hashedPassword")
+    @Column(name = "HASHEDPASSWORD")
     private String hashedPassword;
 
-    @Column(name = "email")
+    @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "active")
+    @Column(name = "ACTIVE")
     private int active;
 
     @ManyToMany
@@ -36,10 +37,10 @@ public class Users {
     
     protected Users() {
 
-        // this.email = null;
-        // this.hashedPassword = null;
-        // this.active = 0;
-        // roles = new HashSet<Roles>();
+        this.email = null;
+        this.hashedPassword = null;
+        this.active = 0;
+        roles = new HashSet<Roles>();
 
     }
 
