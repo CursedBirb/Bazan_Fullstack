@@ -2,7 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
 import Login from './Login';
 
-const ModeSelection = ({ changeView }) => (
+
+const LoginPage = ({ changeView }) => (
 
     <div>
 
@@ -15,5 +16,4 @@ const ModeSelection = ({ changeView }) => (
 
     );
 
-
-export default ModeSelection;
+export default LoginPage;

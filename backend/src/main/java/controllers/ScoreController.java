@@ -45,6 +45,8 @@ public class ScoreController {
 
     @Autowired
     LatestScoresRepository latestScoresRepository;
+
+    String username = "";
     
     @RequestMapping(value = "/getlatestscore", method = RequestMethod.POST)
     public ResponseEntity<ArrayList<LLatestScores>> getScores(ServletRequest request) {
@@ -83,6 +85,34 @@ public class ScoreController {
             ResponseEntity<ArrayList<LLatestScores>> res = new ResponseEntity(locLatestScoresList, HttpStatus.OK);
             return res;
         }
+    }
+
+    @RequestMapping(value = "/getscore", method = RequestMethod.POST)
+    public ResponseEntity<LatestScores> getScore(ServletRequest request) {
+
+        try
+        {
+                
+            //List<Transfer> latestScoresList = latestScoresRepository.findByUsername(userName);
+            LatestScores singleUserScore = latestScoresRepository.findByUsername(username);
+
+            if (singleUserScore==null) {
+
+                throw new IllegalArgumentException("Nie ma danych");
+            }
+
+            ResponseEntity<LatestScores> res = new ResponseEntity(singleUserScore, HttpStatus.OK);
+            return res;
+
+        } catch (Exception e) {
+
+            LatestScores locScores = new LatestScores();
+            locScores.setUsername("ERROR:"+e.getMessage()); 
+            ResponseEntity<LatestScores> res = new ResponseEntity(locScores, HttpStatus.OK);
+            return res;
+
+        }
+        
     }
 
     @RequestMapping(value = "/addhiraganascore", method = RequestMethod.POST)
