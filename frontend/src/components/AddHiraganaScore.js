@@ -8,6 +8,7 @@ import Form from 'react-bootstrap/Form';
 
 export default function AddHiraganaScore() {
 
+    const backendUrl = 'http://localhost:8081';
     const [status, setStatus] = useState("OK");
     const [textArea, setTextArea] = useState("Brak danych");
     const [newUsername, setNewUsername] = useState("Wolololo");
@@ -20,12 +21,12 @@ export default function AddHiraganaScore() {
     //Dodanie przelewu na serwer
     async function addHiraganaScore() {
 
-        let username = newUsername;
+        let username = userName;
         let hiraganaScore = newHiraganaScore;
 
 
         if ((username.length > 0) && (hiraganaScore.length > 0)) {
-            await axios.post('http://localhost:8081//api/v1//addhiraganascore/',
+            await axios.post(`${backendUrl}/api/v1/addhiraganascore/`,
                 { username, hiraganaScore },
             )
                 .then(response => {

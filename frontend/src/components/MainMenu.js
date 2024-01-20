@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import MainPage from './MainPage';
+// import AccountCreationScreen from './AcountCreationScreen';
+// import LatestScoresScreen from './LatestScoresScreen';
+// import LoginScreen from './LoginScreen';
+// import LogOut from './Logout';
+// import MainPage from './MainPage';
+import LoginPage from './LoginPage';
 import ModeSelection from './ModeSelection';
-import LoginScreen from './LoginScreen';
-import AccountCreationScreen from './AcountCreationScreen';
-import LatestScoresScreen from './LatestScoresScreen';
-import LogOut from './Logout';
 
 const MainMenu = () => {
 
-    const [currentScreen, setCurrentScreen] = useState ('component1');
+    const [currentScreen, setCurrentScreen] = useState(null);
 
-    const handleClick = (screenName) => {
+    const changeView = (view) => {
 
-        setCurrentScreen(screenName);
+        setCurrentScreen(view);
 
     }
 
@@ -21,18 +22,21 @@ const MainMenu = () => {
         <div>
             <div>
 
-                <p onClick={() => handleClick('component1')}>Main Menu</p>
-                <p onClick={() => handleClick('component2')}>Mode Selection</p>
+                <p onClick={() => setCurrentScreen('loginPage')}>Login</p>
+                <p onClick={() => setCurrentScreen('selection')}>Mode Selection</p>
 
             </div>
 
             <div>
-                {currentScreen === 'component1' && <MainPage />}
-                {currentScreen === 'component2' && <ModeSelection />}
-                {currentScreen === 'component3' && <LoginScreen />}
+
+                {currentScreen === null && <p>Welcome</p>}
+                {currentScreen === 'mainMenu' && <p>Welcome</p>}
+                {currentScreen === 'loginPage' && <LoginPage changeView={changeView}/>}
+                {currentScreen === 'selection' && <ModeSelection changeView={changeView}/>}
+                {/* {currentScreen === 'component3' && <LoginScreen />}
                 {currentScreen === 'component4' && <AccountCreationScreen />}
                 {currentScreen === 'component5' && <LatestScoresScreen />}
-                {currentScreen === 'component5' && <LogOut />}
+                {currentScreen === 'component5' && <LogOut />} */}
 
             </div>
         </div>

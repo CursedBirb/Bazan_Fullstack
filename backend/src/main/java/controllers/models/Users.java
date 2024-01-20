@@ -23,8 +23,8 @@ public class Users {
     @Column(name = "USERNAME")
     private String username;
 
-    @Column(name = "HASHEDPASSWORD")
-    private String hashedPassword;
+    @Column(name = "PASSWORD")
+    private String password;
 
     @Column(name = "EMAIL")
     private String email;
@@ -38,16 +38,16 @@ public class Users {
     protected Users() {
 
         this.email = null;
-        this.hashedPassword = null;
+        this.password = null;
         this.active = 0;
         roles = new HashSet<Roles>();
 
     }
 
-    public Users(String username, String hashedPassword, String email, int active) {
+    public Users(String username, String password, String email, int active) {
 
         this.username = username;
-        this.hashedPassword = hashedPassword;
+        this.password = password;
         this.email = email.toLowerCase();
         this.active = active;
 
@@ -66,12 +66,12 @@ public class Users {
         this.username = username;
     }
 
-    public String getHashedPassword() {
-        return hashedPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setHashedPassword(String hashedPassword) {
-        this.hashedPassword = hashedPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -101,7 +101,7 @@ public class Users {
 
     @Override
     public String toString() {
-        return String.format("[%s - %s - %s - %s - %s]", username, hashedPassword, email, active, roles);
+        return String.format("[%s - %s - %s - %s - %s]", username, password, email, active, roles);
     }
 
 }

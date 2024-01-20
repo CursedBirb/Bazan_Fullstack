@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and()
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/api/**").hasAuthority("ROLE_USER")
+            // .antMatchers("/api/**").hasAuthority("ROLE_USER")
             .antMatchers("/**") .permitAll();
             // .anyRequest().authenticated()
             // .and()
@@ -43,10 +43,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth)
         throws Exception {
             auth.jdbcAuthentication()
-                .passwordEncoder(new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2A))
+                //.passwordEncoder(new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2A))
                 .dataSource(dataSource)
                 .usersByUsernameQuery("select username, hashedPassword, active from users where username=?")
-                .authoritiesByUsernameQuery("select username, role from users u, roles r, users_roles ur where u.id=ur.user_id and ur.roles_id=r.id and username=?");
+                .authoritiesByUsernameQuery("select username, role from users u, roles r, users_roles ur where u.id=ur.user_id and ur.roles_id=r.id and username=?")
+                .passwordEncoder(passwordEncoder());
         
     }
             
