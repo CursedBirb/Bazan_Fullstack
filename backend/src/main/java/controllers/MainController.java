@@ -20,7 +20,11 @@ import controllers.repositories.HiraganaRepository;
 import controllers.repositories.KatakanaRepository;
 import controllers.repositories.LatestScoresRepository;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(allowCredentials = "true",
+            origins = "http://localhost:3000",
+            allowedHeaders = {"Authorization","Content-Type"},
+            maxAge = 3600,
+            exposedHeaders = {"Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"})
 @RestController
 @RequestMapping("/api/v1")
 public class MainController {

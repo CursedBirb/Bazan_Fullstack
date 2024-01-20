@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import controllers.models.DetailedUsers;
 import controllers.models.Users;
 import controllers.repositories.DetailedUsersRepository;
+import controllers.repositories.RolesRepository;
 import controllers.repositories.UsersRepository;
 
 @CrossOrigin(allowCredentials = "true",
@@ -23,14 +24,15 @@ import controllers.repositories.UsersRepository;
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
-    
-
 
     @Autowired
     UsersRepository usersRepository;
 
     @Autowired
     DetailedUsersRepository detailedUsersRepository;
+
+    @Autowired
+    RolesRepository rolesRepository;
 
     @RequestMapping(value = "/adduser", method = RequestMethod.POST)
     public ResponseEntity<String> addUser(@RequestBody String jsonString)
@@ -57,7 +59,7 @@ public class UserController {
 
             } else {
 
-                Users newestUser = new Users(username, password, email);
+                Users newestUser = new Users(username, password, email, 1);
                 usersRepository.save(newestUser);
 
                 DetailedUsers newestDetailedUser = new DetailedUsers(username, firstName, lastName, Long.parseLong(age), countryOfOrigin);

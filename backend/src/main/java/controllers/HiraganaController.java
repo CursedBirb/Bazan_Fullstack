@@ -18,7 +18,11 @@ import controllers.models.Hiragana;
 import controllers.repositories.HiraganaRepository;
 
 
-@CrossOrigin(maxAge = 3600)
+@CrossOrigin(allowCredentials = "true",
+            origins = "http://localhost:3000",
+            allowedHeaders = {"Authorization","Content-Type"},
+            maxAge = 3600,
+            exposedHeaders = {"Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"})
 @RestController
 @RequestMapping("/api/v1")
 public class HiraganaController {

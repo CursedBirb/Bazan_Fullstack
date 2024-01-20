@@ -19,6 +19,9 @@ export default function GetHiraganaRomajiAndImage() {
     const randomWrongAnswer = Math.floor(Math.random() * 46 + 1);
     const [wrongAnswers, setWrongAnswers] = useState([12, 6, 7, 23]);
 
+    let userName = localStorage.getItem('userName');
+    let password = localStorage.getItem('password');
+
     async function getRecordById() {
 
         try {

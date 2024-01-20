@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import controllers.models.Hiragana;
 import controllers.repositories.HiraganaRepository;
 import controllers.repositories.LatestScoresRepository;
+import controllers.repositories.RolesRepository;
 import controllers.repositories.UsersRepository;
 
 @SpringBootApplication
@@ -21,26 +22,27 @@ public class StartApp implements CommandLineRunner {
     }
 
     //Wstrzykniecie beana repozytorium
-    @Autowired private HiraganaRepository repository;
+    @Autowired private HiraganaRepository repo1;
     @Autowired private LatestScoresRepository repo2;
     @Autowired private UsersRepository repo3;
+    @Autowired private RolesRepository repo4;
     
     
     @Override
     public void run(String... args) {
 
         //Wstawienie osob do bazy
-        // repository.save(new Hiragana("A","qwerty"));
-        // repository.save(new Hiragana("I","qwertyu"));
-        // repository.save(new Hiragana("U","qwertyui"));
-        // repository.save(new Hiragana("E","qwertyuio"));
-        // repository.save(new Hiragana("O","qwertyuiop"));
-        // repository.save(new Hiragana("Ka","asdfgh"));
+        // repo1.save(new Hiragana("A","qwerty"));
+        // repo1.save(new Hiragana("I","qwertyu"));
+        // repo1.save(new Hiragana("U","qwertyui"));
+        // repo1.save(new Hiragana("E","qwertyuio"));
+        // repo1.save(new Hiragana("O","qwertyuiop"));
+        // repo1.save(new Hiragana("Ka","asdfgh"));
         
         //----------------------------------------------------
         
         System.out.println("Osoby wszystkie...");
-        List<Hiragana> hiraganaList = repository.findAll();
+        List<Hiragana> hiraganaList = repo1.findAll();
         for (int i=0; i<hiraganaList.size(); i++) {
             System.out.println(hiraganaList.get(i).toString());
 	}
@@ -51,10 +53,22 @@ public class StartApp implements CommandLineRunner {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        String salt = "AChialbysWiedziec";
-        String encodedPassword = encoder.encode("NotWolololo" + salt);
+        // String salt = "AChialbysWiedziec";
+        String encodedPassword = encoder.encode("rip");
+        System.out.println(encodedPassword);
 
-        // repo3.save(new Users("Wolololo", encodedPassword, "Wolololo@wolololo.com"));
+        // Users rip = new Users("Rip", encodedPassword, "rip@gmail.com", 1);
+
+        // repo3.save(rip);
+        // Roles roleUser = repo4.findByRole("ROLE_USER");
+
+        // rip.getRoles().add(roleUser);
+        // roleUser.getUsers().add(rip);
+
+        // repo3.save(rip);
+        // repo4.save(roleUser);
+
+        // repo3.save(new Users("Wolololo", encodedPassword, "Wolololo@wolololo.com", 1));
         
     }
 
