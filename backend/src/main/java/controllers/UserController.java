@@ -16,13 +16,14 @@ import controllers.repositories.DetailedUsersRepository;
 import controllers.repositories.RolesRepository;
 import controllers.repositories.UsersRepository;
 
-@CrossOrigin(allowCredentials = "true",
-            origins = "http://localhost:3000",
-            allowedHeaders = {"Authorization","Content-Type"},
-            maxAge = 3600,
-            exposedHeaders = {"Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"})
+@CrossOrigin(maxAge = 3600)
+// @CrossOrigin(allowCredentials = "true",
+//             origins = "http://localhost:3000",
+//             allowedHeaders = {"Authorization","Content-Type"},
+//             maxAge = 3600,
+//             exposedHeaders = {"Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"})
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired

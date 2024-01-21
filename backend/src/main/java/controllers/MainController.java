@@ -26,7 +26,6 @@ import controllers.repositories.LatestScoresRepository;
             maxAge = 3600,
             exposedHeaders = {"Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"})
 @RestController
-@RequestMapping("/api/v1")
 public class MainController {
 
     @Autowired private HiraganaRepository hRepository;

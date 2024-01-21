@@ -4,8 +4,6 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletRequest;
-
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import common.LLatestScores;
 import controllers.models.LatestScores;
 import controllers.repositories.LatestScoresRepository;
+import services.AuthService;
 
 
 //To jest kontroler do częsci aplikacji bez JWT (baza danych osób)
@@ -33,12 +32,12 @@ import controllers.repositories.LatestScoresRepository;
 //Dlatego można je usunąć adnotacją: @CrossOrigin(maxAge = 3600) (3600 oznacza na jaki czas wyłączamy, tj. liczbę sekund wyłaczenia)
 
 
-@CrossOrigin(allowCredentials = "true",
-            origins = "http://localhost:3000",
-            allowedHeaders = {"Authorization","Content-Type"},
-            maxAge = 3600,
-            exposedHeaders = {"Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"})
-// @CrossOrigin(maxAge = 3600)
+// @CrossOrigin(allowCredentials = "true",
+//             origins = "http://localhost:3000",
+//             allowedHeaders = {"Authorization","Content-Type"},
+//             maxAge = 3600,
+//             exposedHeaders = {"Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"})
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class ScoreController {
@@ -46,13 +45,36 @@ public class ScoreController {
     @Autowired
     LatestScoresRepository latestScoresRepository;
 
+    private final AuthService authService;
+    public ScoreController (AuthService authService) {
+
+        this.authService = authService;
+        
+    }
+
     String username = "";
     
     @RequestMapping(value = "/getlatestscore", method = RequestMethod.POST)
-    public ResponseEntity<ArrayList<LLatestScores>> getScores(ServletRequest request) {
+    public ResponseEntity<ArrayList<LLatestScores>> getScores(@RequestBody String jsonString) {
 
-        try
-        {
+        try {
+
+            JSONObject obj = new JSONObject(jsonString);
+            String username = obj.getString("username");
+            String password = obj.getString("password");
+
+            boolean isLoggedIn = authService.authService(username, password);
+
+            if(!isLoggedIn) {
+
+                ArrayList<LLatestScores> locLatestScoresList = new ArrayList<LLatestScores>();
+                LLatestScores locScores = new LLatestScores();
+                locScores.setUsername("ERROR:  Please log in first");
+                locLatestScoresList.add(locScores);
+                ResponseEntity<ArrayList<LLatestScores>> res = new ResponseEntity(locLatestScoresList, HttpStatus.OK);
+                return res;
+
+            }
                 
             //List<Transfer> latestScoresList = latestScoresRepository.findByUsername(userName);
             List<LatestScores> latestScoresList = latestScoresRepository.findAll();
@@ -88,10 +110,24 @@ public class ScoreController {
     }
 
     @RequestMapping(value = "/getscore", method = RequestMethod.POST)
-    public ResponseEntity<LatestScores> getScore(ServletRequest request) {
+    public ResponseEntity<LatestScores> getScore(@RequestBody String jsonString) {
 
-        try
-        {
+        try {
+
+            JSONObject obj = new JSONObject(jsonString);
+            String username = obj.getString("username");
+            String password = obj.getString("password");
+
+            boolean isLoggedIn = authService.authService(username, password);
+
+            if(!isLoggedIn) {
+
+                LatestScores locScores = new LatestScores();
+                locScores.setUsername("ERROR: Please log in first");
+                ResponseEntity<LatestScores> res = new ResponseEntity(locScores, HttpStatus.OK);
+                return res;
+
+            }
                 
             //List<Transfer> latestScoresList = latestScoresRepository.findByUsername(userName);
             LatestScores singleUserScore = latestScoresRepository.findByUsername(username);
@@ -123,7 +159,17 @@ public class ScoreController {
             
             JSONObject obj = new JSONObject(jsonString);
             String username = obj.getString("username");
+            String password = obj.getString("password");
             String hiraganaScore = obj.getString("hiraganaScore");
+
+            boolean isLoggedIn = authService.authService(username, password);
+
+            if(!isLoggedIn) {
+
+                ResponseEntity<String> res = new ResponseEntity("ERROR: Please log in first", HttpStatus.OK);
+                return res;
+
+            }
 
             LatestScores existingRecord = latestScoresRepository.findByUsername(username);
 
@@ -134,7 +180,7 @@ public class ScoreController {
                 long longExistingRecordH3 = existingRecord.getHiraganaScore3();
 
 
-                if (!!existingRecord.getHiraganaScore1().equals(-32L)) {
+                if (!existingRecord.getHiraganaScore1().equals(-32L)) {
 
                     existingRecord.setHiraganaScore1(Long.parseLong(hiraganaScore));
                     
@@ -163,16 +209,16 @@ public class ScoreController {
                 latestScoresRepository.save(existingRecord);
 
                 ResponseEntity<String> res = new ResponseEntity("Dodano przelew", HttpStatus.OK);
-            return res;
+                return res;
 
             } else {
 
-            LatestScores latest = new LatestScores(username, Long.parseLong(hiraganaScore), -32L, -32L, -32L, -32L, -32L);
+                LatestScores latest = new LatestScores(username, Long.parseLong(hiraganaScore), -32L, -32L, -32L, -32L, -32L);
 
-            latestScoresRepository.save(latest);
+                latestScoresRepository.save(latest);
 
-            ResponseEntity<String> res = new ResponseEntity("Dodano przelew", HttpStatus.OK);
-            return res;
+                ResponseEntity<String> res = new ResponseEntity("Dodano przelew", HttpStatus.OK);
+                return res;
 
             }
 

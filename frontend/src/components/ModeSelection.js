@@ -7,7 +7,7 @@ const ModeSelection = ({ changeView }) => (
 
         <h2>Choose the Mode</h2>
     
-        <button onClick={() => changeView('hiraganaScreen')}>Hiragana</button>
+        <button onClick={() => changeView('hiragana')}>Hiragana</button>
         <button onClick={() => changeView('katakanaScreen')}>Katakana</button>
         <p></p>
         <button onClick={() => changeView('mainMenu')}>Back To menu</button>

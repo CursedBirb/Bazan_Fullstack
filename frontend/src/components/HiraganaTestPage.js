@@ -1,14 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
+import GetHiraganaRomajiAndImage from './GetHiraganaRomajiAndImage';
 
-const ModeSelection = ({ changeView }) => (
+const HiraganaTestPage = ({ changeView }) => (
 
     <div>
+        
+        <GetHiraganaRomajiAndImage />
 
-        <h2>Choose the Mode</h2>
-    
-        <button onClick={() => changeView('hiraganaScreen')}>Hiragana</button>
-        <button onClick={() => changeView('katakanaScreen')}>Katakana</button>
         <p></p>
         <button onClick={() => changeView('mainMenu')}>Back To menu</button>
 
@@ -17,4 +16,4 @@ const ModeSelection = ({ changeView }) => (
     );
 
 
-export default ModeSelection;
+export default HiraganaTestPage;
