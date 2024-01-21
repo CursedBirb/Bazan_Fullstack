@@ -73,7 +73,7 @@ export default function Login() {
 
         <Container>
 
-            <p>Aktualnie podany użytkownik i hasło: {userName}, {password}</p>
+            <p>Current User: {userName}, {password}</p>
 
             <Button variant="primary" onClick={handleShow}> Aktualizuj dane do autoryzacji </Button>
 
@@ -81,16 +81,16 @@ export default function Login() {
 
             <Modal show={modalShow} onHide={handleCloseHeader}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Logowanie</Modal.Title>
+                    <Modal.Title>Log In</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group className="auto">
-                            <Form.Label>Użytkownik:</Form.Label>
+                            <Form.Label>User:</Form.Label>
                             <Form.Control type="text" value={modalNewUsername} placeholder="" onChange={(e) => setModalNewUsername(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="auto">
-                            <Form.Label>Hasło:</Form.Label>
+                            <Form.Label>Password:</Form.Label>
                             <Form.Control type="text" value={modalNewPassword} placeholder="" onChange={(e) => setModalNewPassword(e.target.value)} />
                         </Form.Group>
                     </Form >
@@ -98,10 +98,10 @@ export default function Login() {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>
-                        OK
+                        Confirm
                     </Button>
                     <Button variant="secondary" onClick={handleClose}>
-                        Anuluj
+                        Cancel
                     </Button>
                 </Modal.Footer>
             </Modal>

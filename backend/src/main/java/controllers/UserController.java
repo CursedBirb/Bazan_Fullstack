@@ -16,13 +16,14 @@ import controllers.repositories.DetailedUsersRepository;
 import controllers.repositories.RolesRepository;
 import controllers.repositories.UsersRepository;
 
-@CrossOrigin(allowCredentials = "true",
-            origins = "http://localhost:3000",
-            allowedHeaders = {"Authorization","Content-Type"},
-            maxAge = 3600,
-            exposedHeaders = {"Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"})
+@CrossOrigin(maxAge = 3600)
+// @CrossOrigin(allowCredentials = "true",
+//             origins = "http://localhost:3000",
+//             allowedHeaders = {"Authorization","Content-Type"},
+//             maxAge = 3600,
+//             exposedHeaders = {"Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"})
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
@@ -57,21 +58,17 @@ public class UserController {
 
                 return res;
 
-            } else {
-
-                Users newestUser = new Users(username, password, email, 1);
-                usersRepository.save(newestUser);
-
-                DetailedUsers newestDetailedUser = new DetailedUsers(username, firstName, lastName, Long.parseLong(age), countryOfOrigin);
-                detailedUsersRepository.save(newestDetailedUser);
-
-                ResponseEntity<String> res = new ResponseEntity("Dodano przelew", HttpStatus.OK);
-                return res;
-
             }
 
-            
+            Users newestUser = new Users(username, password, email, 1);
+            usersRepository.save(newestUser);
 
+            DetailedUsers newestDetailedUser = new DetailedUsers(username, firstName, lastName, Long.parseLong(age), countryOfOrigin);
+            detailedUsersRepository.save(newestDetailedUser);
+
+            ResponseEntity<String> res = new ResponseEntity("User added", HttpStatus.OK);
+            return res;
+            
         } catch (Exception e) {
 
             String text = new String("ERROR:"+e.getMessage());

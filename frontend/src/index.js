@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 // import BankTransNoAuthHook from "./components/BankTransNoAuthHook";
-import MainMenu from './components/MainMenu';
+import MainMenu from './components/MainMenuPage';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

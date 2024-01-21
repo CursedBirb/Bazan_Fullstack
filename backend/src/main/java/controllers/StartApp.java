@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import controllers.models.Hiragana;
 import controllers.repositories.HiraganaRepository;
@@ -15,6 +17,9 @@ import controllers.repositories.RolesRepository;
 import controllers.repositories.UsersRepository;
 
 @SpringBootApplication
+@ComponentScan({"services", "controllers"})
+@EntityScan("controllers.models")
+@EnableJpaRepositories("controllers.repositories")
 public class StartApp implements CommandLineRunner {
 
     public static void main(String[] args) {
@@ -51,11 +56,11 @@ public class StartApp implements CommandLineRunner {
         System.out.println(repo2.findById(2).toString());
         System.out.println(repo2.findByUsername("Wolololo").toString());
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        // BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         // String salt = "AChialbysWiedziec";
-        String encodedPassword = encoder.encode("rip");
-        System.out.println(encodedPassword);
+        // String encodedPassword = encoder.encode("rip");
+        // System.out.println(encodedPassword);
 
         // Users rip = new Users("Rip", encodedPassword, "rip@gmail.com", 1);
 
