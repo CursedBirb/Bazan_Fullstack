@@ -1,59 +1,64 @@
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useState } from "react";
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
+import React, { useEffect, useState } from "react";
 
-export default function GetLatestScores() {
+export default function GetLatestScore() {
 
     const backendUrl = 'http://localhost:8081';
     const [status, setStatus] = useState("OK");
     const [textArea, setTextArea] = useState("Tu powinna być zawartość bazy danych, ale jak nie to mi wciąż nie działa");
+    const [wynik, setWynik] = useState("");
+    const [, forceUpdate] = useState();
+    const [score, setScore] = useState();
 
     var username = localStorage.getItem('userName');
     var password = localStorage.getItem('password');
 
     async function getScore() {
 
-        let token = userName + ":" + password;
-        var etoken = window.btoa(token);
-        var basicAuth = 'Basic ' + etoken;
-
         // await axios.post(`${backendUrl}/api/v1/getlatestscore/`
         // await axios.post(`${backendUrl}/api/v1/getlatestscore/`,
-        await axios.post(`${backendUrl}/api/getlatestscore/`,
+        await axios.post(`${backendUrl}/api/getscore`,
         { username, password } )
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
 
-                let scoresListText = ""
+                let rd = response.data;
 
-                response.data.forEach((e) => {
-                    let lid = e.id;
-                    let lusername = e.username;
-                    let lhiraganaScore1 = e.hiraganaScore1;
-                    let lhiraganaScore2 = e.hiraganaScore2;
-                    let lhiraganaScore3 = e.hiraganaScore3;
-                    let lkatakanaScore1 = e.katakanaScore1;
-                    let lkatakanaScore2 = e.katakanaScore2;
-                    let lkatakanaScore3 = e.katakanaScore3;
+                let scoresListText = "";
 
-                    let firstPartText = lusername.substring(0, ("ERROR:").length);
+                scoresListText = `${response.data.username}, ${response.data.hiraganaScore1}, ${response.data.hiraganaScore2}, ${response.data.hiraganaScore3}, ${response.data.katakanaScore1}, ${response.data.katakanaScore2}, ${response.data.katakanaScore3}\n`;
 
+                if(rd.hiraganaScore1 === -32) {
 
-                    if (firstPartText !== "ERROR:") {
-                        scoresListText += `${lid}, ${lusername}, ${lhiraganaScore1}, ${lhiraganaScore2}, ${lhiraganaScore3}, ${lkatakanaScore1}, ${lkatakanaScore2}, ${lkatakanaScore3}\n`;
-                        setTextArea(scoresListText);
-                        setStatus("OK");
-                    }
-                    else {
-                        let secondPartText = lusername.substring(("ERROR:").length, lusername.length);
-                        scoresListText = lusername + "\n";
-                        setTextArea(scoresListText);
-                        setStatus(secondPartText);
-                    }
-                })
+                    setScore("Finish test at least once to see your % score of the last three tries");
+
+                }
+
+                if(rd.hiraganaScore1 > -32) {
+
+                    setScore("Your score is: " + (((rd.hiraganaScore1) / 46) * 100) + "%.");
+
+                }
+
+                if(rd.hiraganaScore2 > -32) {
+
+                    setScore("Your score is: " + ((((rd.hiraganaScore1 + rd.hiraganaScore2) / 2) / 46) * 100) + "%.");
+
+                }
+
+                if(rd.hiraganaScore3 > -32) {
+
+                    setScore("Your score is: " + ((((rd.hiraganaScore1 + rd.hiraganaScore2 + rd.hiraganaScore3) / 3) / 46) * 100) + "%.");
+
+                }
+                
+                // setTextArea(scoresListText);
+                // setStatus("OK");
+                // setWynik(scoresListText);
+                // console.log(wynik);
+
+                
 
             }).catch(err => {
 
@@ -63,19 +68,35 @@ export default function GetLatestScores() {
 
     }
 
+    useEffect(() => {
+        // Tu możesz dodać inne efekty uboczne, jeśli są potrzebne
+    }, [wynik]);
+
     return (
 
-        <Container>
-
-            <Button variant="primary" onClick={getScore}>  Odczytaj aktualną listę przelewów  </Button>
+        <div >
 
             <p></p>
-
-            <Form.Control as="textarea" rows={8} type="text" value={textArea} placeholder="" onChange={(e) => setTextArea(e.target.value)} spellCheck="false" />
-
+            <p></p>
+            <button onClick={getScore}>Get your all scores</button>
+            <p>{score}</p>
             <p></p>
 
-        </Container>
+            
+
+        </div>
+
+        // <Container>
+
+        //     <Button variant="primary" onClick={getScore}>  Odczytaj aktualną listę przelewów  </Button>
+
+        //     <p></p>
+
+        //     <Form.Control as="textarea" rows={8} type="text" value={textArea} placeholder="" onChange={(e) => setTextArea(e.target.value)} spellCheck="false" />
+
+        //     <p></p>
+
+        // </Container>
 
     );
 

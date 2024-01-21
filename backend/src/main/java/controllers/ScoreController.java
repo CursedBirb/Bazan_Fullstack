@@ -160,7 +160,7 @@ public class ScoreController {
             JSONObject obj = new JSONObject(jsonString);
             String username = obj.getString("username");
             String password = obj.getString("password");
-            String hiraganaScore = obj.getString("hiraganaScore");
+            String hiraganaScore = obj.getString("score");
 
             boolean isLoggedIn = authService.authService(username, password);
 
@@ -186,19 +186,19 @@ public class ScoreController {
                     
                 }
 
-                if (!existingRecord.getHiraganaScore2().equals(-32L) || longExistingRecordH1 > 0 ) {
+                if (!existingRecord.getHiraganaScore2().equals(-32L) || longExistingRecordH1 >= 0 ) {
 
                     existingRecord.setHiraganaScore2(Long.parseLong(hiraganaScore));
                     
                 }
 
-                if (!existingRecord.getHiraganaScore3().equals(-32L) || longExistingRecordH2 > 0 ) {
+                if (!existingRecord.getHiraganaScore3().equals(-32L) || longExistingRecordH2 >= 0 ) {
 
                     existingRecord.setHiraganaScore3(Long.parseLong(hiraganaScore));
                     
                 }
 
-                if (longExistingRecordH3 > 0) {
+                if (longExistingRecordH3 >= 0) {
 
                     existingRecord.setHiraganaScore1(longExistingRecordH2);
                     existingRecord.setHiraganaScore2(longExistingRecordH3);

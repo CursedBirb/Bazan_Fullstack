@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
 
-const ModeSelection = ({ changeView }) => (
+const ModeSelectionPage = ({ changeView }) => (
 
     <div>
 
@@ -17,4 +17,4 @@ const ModeSelection = ({ changeView }) => (
     );
 
 
-export default ModeSelection;
+export default ModeSelectionPage;

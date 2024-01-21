@@ -58,21 +58,17 @@ public class UserController {
 
                 return res;
 
-            } else {
-
-                Users newestUser = new Users(username, password, email, 1);
-                usersRepository.save(newestUser);
-
-                DetailedUsers newestDetailedUser = new DetailedUsers(username, firstName, lastName, Long.parseLong(age), countryOfOrigin);
-                detailedUsersRepository.save(newestDetailedUser);
-
-                ResponseEntity<String> res = new ResponseEntity("Dodano przelew", HttpStatus.OK);
-                return res;
-
             }
 
-            
+            Users newestUser = new Users(username, password, email, 1);
+            usersRepository.save(newestUser);
 
+            DetailedUsers newestDetailedUser = new DetailedUsers(username, firstName, lastName, Long.parseLong(age), countryOfOrigin);
+            detailedUsersRepository.save(newestDetailedUser);
+
+            ResponseEntity<String> res = new ResponseEntity("User added", HttpStatus.OK);
+            return res;
+            
         } catch (Exception e) {
 
             String text = new String("ERROR:"+e.getMessage());

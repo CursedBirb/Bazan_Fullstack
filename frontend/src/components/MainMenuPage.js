@@ -6,7 +6,8 @@ import React, { useState } from 'react';
 // import MainPage from './MainPage';
 import HiraganaTestPage from './HiraganaTestPage';
 import LoginPage from './LoginPage';
-import ModeSelection from './ModeSelection';
+import ModeSelectionPage from './ModeSelectionPage';
+import NewUserPage from './NewUserPage';
 
 const MainMenu = () => {
 
@@ -31,6 +32,7 @@ const MainMenu = () => {
                     setCurrentScreen('mainMenu');
 
                 }}>Log Out</p>
+                <p onClick={() => setCurrentScreen('register')}>Create account</p>
                 <p onClick={() => setCurrentScreen('selection')}>Mode Selection</p>
 
             </div>
@@ -40,8 +42,9 @@ const MainMenu = () => {
                 {currentScreen === null && <p>Welcome</p>}
                 {currentScreen === 'mainMenu' && <p>Welcome</p>}
                 {currentScreen === 'loginPage' && <LoginPage changeView={changeView}/>}
-                {currentScreen === 'selection' && <ModeSelection changeView={changeView}/>}
+                {currentScreen === 'selection' && <ModeSelectionPage changeView={changeView}/>}
                 {currentScreen === 'hiragana' && <HiraganaTestPage changeView={changeView}/>}
+                {currentScreen === 'register' && <NewUserPage changeView={changeView}/>}
 
                 {/* {currentScreen === 'component3' && <LoginScreen />}
                 {currentScreen === 'component4' && <AccountCreationScreen />}

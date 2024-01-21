@@ -1,8 +1,6 @@
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from "react";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import letters from './LetterList';
 
 export default function GetHiraganaRomajiAndImage() {
@@ -21,6 +19,9 @@ export default function GetHiraganaRomajiAndImage() {
     const randomWrongAnswer = Math.floor(Math.random() * 46 + 1);
     const [wrongAnswers, setWrongAnswers] = useState([12, 6, 7, 23]);
     const [textArea, setTextArea] = useState("");
+
+    const imageName = image;
+    const imagePath = process.env.PUBLIC_URL + `./images/${imageName}.png`;
 
     let username = localStorage.getItem('userName');
     let password = localStorage.getItem('password');
@@ -103,6 +104,16 @@ export default function GetHiraganaRomajiAndImage() {
         generateRandomWrongAnswers();
         getRecordById();
 
+        
+        if(targetNumberOfLetter > 46) {
+
+            addHiraganaScore();
+            setAnswer("Test Has Ended. Click Save Score to save your score");
+
+            return;
+
+        }
+
     }, [targetNumberOfLetter]);
 
     const initializeValues = () => {
@@ -118,15 +129,6 @@ export default function GetHiraganaRomajiAndImage() {
 
         }
 
-        if(targetNumberOfLetter === 47) {
-
-            localStorage.setItem('score', score);
-            setAnswer("Test Has Ended. Click Save Score to save your score");
-
-            return;
-
-        }
-        
         setAnswer("");
         // setCorrectAnswer(randomCorrectAnswer);
         newButtons[correctAnswer] = romaji;
@@ -186,8 +188,8 @@ export default function GetHiraganaRomajiAndImage() {
 
     async function addHiraganaScore() {
 
-        if ((username.length > 0) && (score.length > 0)) {
-            await axios.post(`${backendUrl}/apis/addhiraganascore/`,
+        if ((username.length > 0) && (score > 0)) {
+            await axios.post(`${backendUrl}/api/addhiraganascore/`,
                 { username, password, score }
             )
                 .then(response => {
@@ -199,6 +201,7 @@ export default function GetHiraganaRomajiAndImage() {
                 });
         }
         else {
+            console.log("Username: " + username + ", score: " + score);
             setStatus("Żadna z danych wstawianego przelewu nie może być pusta");
         }
     }
@@ -214,10 +217,13 @@ export default function GetHiraganaRomajiAndImage() {
 
             
 
-            <p>{targetNumberOfLetter}</p>
+            {/* <p>{targetNumberOfLetter}</p>
             <p>{status}</p>
             <p>{romaji}</p>
-            <p>{image}</p>
+            <p>{image}</p> */}
+
+            <img src={imagePath} alt="Hiragana letter image" />
+            <p></p>
 
             {buttons.map((button, index) => (
                 <button key={index} onClick={() => checkIfCorrectAnswer(index)}>
@@ -229,7 +235,7 @@ export default function GetHiraganaRomajiAndImage() {
 
             <button onClick={incrementTarget}>Next question</button>
 
-            <Form onSubmit={handleSubmit}>
+            {/* <Form onSubmit={handleSubmit}>
                 <Form.Group className="auto" onSubmit={handleSubmit}>
                     <Button variant="primary" type="submit">  Dodaj  </Button>
                 </Form.Group>
@@ -238,7 +244,7 @@ export default function GetHiraganaRomajiAndImage() {
 
             <p></p>
 
-            <Form.Control as="textarea" rows={8} type="text" value={textArea} placeholder="" onChange={(e) => setTextArea(e.target.value)} spellCheck="false" />
+            <Form.Control as="textarea" rows={8} type="text" value={textArea} placeholder="" onChange={(e) => setTextArea(e.target.value)} spellCheck="false" /> */}
 
         </div>
 
