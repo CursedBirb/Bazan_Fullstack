@@ -1,10 +1,11 @@
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from "react";
+import backendAdress from './backendAdress';
 
 export default function GetLatestScores() {
 
-    const backendUrl = 'http://localhost:8081';
+    // const backendUrl = 'http://192.168.137.1:8081';
     const [targetNumberOfLetter, setTargetNumberOfLetter] = useState("1");
     const [status, setStatus] = useState("OK");
     const [image, setImage] = useState("Brak Zdjęcia");
@@ -13,7 +14,7 @@ export default function GetLatestScores() {
 
     async function getRecordById() {
 
-        await axios.post(`${backendUrl}/api/v1/gethiraganarecord/`)
+        await axios.post(`${backendAdress}/api/v1/gethiraganarecord/`)
             .then(response => {
                 console.log(response.data);
                 let imageData = "";

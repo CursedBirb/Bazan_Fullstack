@@ -1,0 +1,20 @@
+services:
+  backend:
+    image: backend
+    restart: always
+    expose:
+      - "8080"
+    networks:
+      - react-spring
+  frontend:
+    image: frontend
+    restart: always
+    expose:
+      - "3000"
+    networks:
+      - react-spring
+    ports:
+      - "12345:3000"
+networks:
+  react-spring:
+    driver: bridge

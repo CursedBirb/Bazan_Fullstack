@@ -11,15 +11,18 @@
 	</parent>
 
 
-	<groupId>cursed.bfs</groupId>
-	<artifactId>cursed.bfs</artifactId>
+	<groupId>cursed</groupId>
+	<artifactId>cursed</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 	<name>Full Stack app for uni project</name>
 	<description>Hiragana and Katakana Testing app</description>
 
 	<properties>
-                <java.version>19</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
+		<!-- <start-class>controllers.StartApp</start-class> -->
 	</properties>
 
 	<dependencies>
@@ -86,7 +89,7 @@
 			</plugin>
 		</plugins>
 
-                <finalName>restservicebanknoauthpostgresql</finalName>
+                <finalName>HiraganaAndKatakanaTestingApp</finalName>
 	</build>
 
 </project>

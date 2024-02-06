@@ -4,10 +4,11 @@ import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
+import backendAdress from './backendAdress';
 
 export default function NewAccount() {
 
-    const backendUrl = 'http://localhost:8081';
+    // const backendUrl = 'http://192.168.137.1:8081';
     const [status, setStatus] = useState("Johan");
     const [username, setUsername] = useState("Johan");
     const [password, setPassword] = useState("Johan");
@@ -21,7 +22,7 @@ export default function NewAccount() {
 
         if ((username.length > 0) && (password.length > 0) && (email.length > 0) && (firstName.length > 0) && (lastName.length > 0) && (age > 0) && (countryOfBirth.length > 0)) {
 
-            await axios.post(`${backendUrl}/api/adduser`,
+            await axios.post(`${backendAdress}/api/adduser`,
             {username, password, email, firstName, lastName, age, countryOfBirth} )
 
                 .then(response => {
