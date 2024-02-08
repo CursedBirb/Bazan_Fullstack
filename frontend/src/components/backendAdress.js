@@ -1,4 +1,4 @@
-const backendAdress = 'http://192.168.137.1:8080';
-
+const backendAdress = 'http://backend:8080';
+// const backendAdress = 'http://localhost:8080';
 
 export default backendAdress;
