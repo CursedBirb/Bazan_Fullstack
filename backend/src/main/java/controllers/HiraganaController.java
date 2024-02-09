@@ -3,6 +3,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,27 +38,28 @@ public class HiraganaController {
 
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/gethiraganarecord", method=RequestMethod.POST)
     public ResponseEntity<ArrayList<HHiragana>> getHiraganaRecords (@RequestBody String jsonString) {
         
         try {
 
-            // JSONObject obj = new JSONObject(jsonString);
-            // String username = obj.getString("username");
-            // String password = obj.getString("password");
+            JSONObject obj = new JSONObject(jsonString);
+            String username = obj.getString("username");
+            String password = obj.getString("password");
 
-            // boolean isLoggedIn = authService.authService(username, password);
+            boolean isLoggedIn = authService.authService(username, password);
 
-            // if(!isLoggedIn) {
+            if(!isLoggedIn) {
 
-            //     ArrayList<HHiragana> locHiraganaList = new ArrayList<HHiragana>();
-            //     HHiragana locRecords = new HHiragana();
-            //     locRecords.setHiraganaRomaji("ERROR: Please log in first");
-            //     locHiraganaList.add(locRecords);
-            //     ResponseEntity<ArrayList<HHiragana>> res = new ResponseEntity(locHiraganaList, HttpStatus.OK);
-            //     return res;
+                ArrayList<HHiragana> locHiraganaList = new ArrayList<HHiragana>();
+                HHiragana locRecords = new HHiragana();
+                locRecords.setHiraganaRomaji("ERROR: Please log in first");
+                locHiraganaList.add(locRecords);
+                ResponseEntity<ArrayList<HHiragana>> res = new ResponseEntity(locHiraganaList, HttpStatus.OK);
+                return res;
 
-            // }
+            }
                 
             //List<Transfer> latestScoresList = latestScoresRepository.findByUsername(userName);
             List<Hiragana> hiraganaList = hiraganaRepository.findAll();

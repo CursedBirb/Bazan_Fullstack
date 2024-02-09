@@ -1,37 +1,42 @@
+version: '3'
+
 services:
 
   backend:
-    image: backend
     build:
       context: backend
-      dockerfile: ../backend/Dockerfile
+      dockerfile: Dockerfile
     restart: always
+    container_name: Springboot_Server
     expose:
-      - "8080"
-    # networks:
-      # - react-spring
+      - "8080:8080"
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING.PROFILES.ACTIVE=default
+    networks:
+      - react-spring
 
   frontend:
-    image: frontend
     build:
       context: frontend
-      dockerfile: ../frontend/Dockerfile
+      dockerfile: Dockerfile
+    restart: always
+    container_name: React
     environment:
       - WDS_SOCKET_PORT=0
-    restart: always
     # expose:
       # - "3000"
-    # networks:
-    #   - react-spring
+    networks:
+      - react-spring
     ports:
-      - "12345:3000"
-      # - "3000:3000"
+      # - "12345:3000"
+      - "3000:3000"
     depends_on:
       - backend
 
-# networks:
-#   react-spring:
-#     driver: bridge
+networks:
+  react-spring:
 
 # Tried to add proxy
   # proxy:
@@ -42,12 +47,12 @@ services:
   #   volumes:
   #     - ./proxy/default.conf:/etc/nginx/conf.d/default.conf
 
-  nginx-proxy:
-    image: nginx
-    ports:
-      - "8080:80"
-    volumes:
-      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
-    depends_on:
-      - frontend
-      - backend
+  # nginx-proxy:
+  #   image: nginx
+  #   ports:
+  #     - "8080:80"
+  #   volumes:
+  #     - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+  #   depends_on:
+  #     - frontend
+  #     - backend
