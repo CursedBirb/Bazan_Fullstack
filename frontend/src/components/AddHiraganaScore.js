@@ -4,10 +4,12 @@ import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
+import backendAdress from './backendAdress';
+
 
 export default function AddHiraganaScore() {
 
-    const backendUrl = 'http://localhost:8081';
+    // const backendUrl = 'http://192.168.137.1:8081';
     const [status, setStatus] = useState("OK");
     const [textArea, setTextArea] = useState("Brak danych");
     const [newUsername, setNewUsername] = useState("Wolololo");
@@ -26,7 +28,7 @@ export default function AddHiraganaScore() {
 
 
         if ((username.length > 0) && (hiraganaScore.length > 0)) {
-            await axios.post(`${backendUrl}/apis/addhiraganascore/`,
+            await axios.post(`${backendAdress}/apis/addhiraganascore/`,
                 { username, password, hiraganaScore }
             )
                 .then(response => {

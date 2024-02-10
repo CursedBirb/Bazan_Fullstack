@@ -1,10 +1,11 @@
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from "react";
+import backendAdress from './backendAdress';
 
 export default function GetLatestScore() {
 
-    const backendUrl = 'http://localhost:8081';
+    // const backendUrl = 'http://192.168.137.1:8081';
     const [status, setStatus] = useState("OK");
     const [textArea, setTextArea] = useState("Tu powinna być zawartość bazy danych, ale jak nie to mi wciąż nie działa");
     const [wynik, setWynik] = useState("");
@@ -18,7 +19,7 @@ export default function GetLatestScore() {
 
         // await axios.post(`${backendUrl}/api/v1/getlatestscore/`
         // await axios.post(`${backendUrl}/api/v1/getlatestscore/`,
-        await axios.post(`${backendUrl}/api/getscore`,
+        await axios.post(`${backendAdress}/api/getscore`,
         { username, password } )
             .then(response => {
                 // console.log(response.data);

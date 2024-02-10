@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    container_name: Springboot_Server_Container
+    expose:
+    - "8080:8080"
+    ports:
+    - "8080:8080"
+    volumes:
+    - ./target:/app/target

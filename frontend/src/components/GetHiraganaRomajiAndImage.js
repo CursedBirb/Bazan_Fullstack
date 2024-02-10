@@ -2,10 +2,11 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from "react";
 import letters from './LetterList';
+import backendAdress from './backendAdress';
 
 export default function GetHiraganaRomajiAndImage() {
 
-    const backendUrl = 'http://localhost:8081';
+    // const backendUrl = 'http://192.168.137.1:8081';
     const [targetNumberOfLetter, setTargetNumberOfLetter] = useState(1);
     const [status, setStatus] = useState("OK");
     const [image, setImage] = useState("Brak Zdjęcia");
@@ -18,6 +19,7 @@ export default function GetHiraganaRomajiAndImage() {
     const randomCorrectAnswer = Math.floor(Math.random() * 4);
     const randomWrongAnswer = Math.floor(Math.random() * 46 + 1);
     const [wrongAnswers, setWrongAnswers] = useState([12, 6, 7, 23]);
+    const [showScore, setShowScore] = useState(false);
     const [textArea, setTextArea] = useState("");
 
     const imageName = image;
@@ -30,7 +32,7 @@ export default function GetHiraganaRomajiAndImage() {
 
         try {
 
-            const response = await axios.post(`${backendUrl}/api/gethiraganarecord/`,
+            const response = await axios.post(`${backendAdress}/api/gethiraganarecord/`,
             { username, password });
             console.log(response.data);
             let idFound = false;
@@ -108,11 +110,14 @@ export default function GetHiraganaRomajiAndImage() {
         if(targetNumberOfLetter > 46) {
 
             addHiraganaScore();
-            setAnswer("Test Has Ended. Click Save Score to save your score");
+            setShowScore(true);
+            setAnswer("Test Has Ended. Your score has been saved. Click get all your scores to know your % rating");
 
             return;
 
         }
+
+        setShowScore(false);
 
     }, [targetNumberOfLetter]);
 
@@ -189,7 +194,7 @@ export default function GetHiraganaRomajiAndImage() {
     async function addHiraganaScore() {
 
         if ((username.length > 0) && (score > 0)) {
-            await axios.post(`${backendUrl}/api/addhiraganascore/`,
+            await axios.post(`${backendAdress}/api/addhiraganascore/`,
                 { username, password, score }
             )
                 .then(response => {
@@ -234,6 +239,8 @@ export default function GetHiraganaRomajiAndImage() {
             <p>{answer}</p>
 
             <button onClick={incrementTarget}>Next question</button>
+
+            {showScore && <p>Twój wynik to: {score} z 46 możliwych</p>}
 
             {/* <Form onSubmit={handleSubmit}>
                 <Form.Group className="auto" onSubmit={handleSubmit}>
