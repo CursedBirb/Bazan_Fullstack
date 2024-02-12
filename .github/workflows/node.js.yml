@@ -33,10 +33,7 @@ jobs:
         cache: 'npm'
 
     - name: Install dependencies
-      run: npm ci
-
-    - name: Builds
-      run: npm run build --if-present
+      run: npm install
 
     - name: Test?
       run: npm test
