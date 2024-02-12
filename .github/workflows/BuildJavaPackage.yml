@@ -24,18 +24,18 @@ jobs:
     - name: Get Repo
       uses: actions/checkout@v3
 
+    - name: Change directory
+      run: cd backend
+
     - name: Set up JDK 19
       uses: actions/setup-java@v3
       with:
         java-version: '19'
         distribution: 'temurin'
         cache: maven
-    
-    - name: Change directory
-      run: cd backend
         
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B package --file backend/pom.xml
 
     - name: Write message
       run: echo "Zbudowało?"
