@@ -14,9 +14,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    #strategy:
-    #  matrix:
-    #    node-version: [14.x, 16.x, 18.x]
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -26,17 +26,21 @@ jobs:
     - name: Change directory
       run: cd frontend
       
-    #- name: Use Node.js ${{ matrix.node-version }}
-    #  uses: actions/setup-node@v3
-    #  with:
-    #    node-version: ${{ matrix.node-version }}
-    #    cache: 'npm'
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
 
-    - name: Install dependencies
-      run: npm install
+    - name: Change directory and install dependencies
+      working-directory: frontend
+      run: |
+        npm install
 
-    #- name: Test?
-    #  run: npm test
+    - name: Run tests
+      working-directory: frontend
+      run: |
+        npm test
 
-    #- name: Write message
-    #  run: echo "Test wykonało?"
+    - name: Write message
+      run: echo "Test wykonało?"
