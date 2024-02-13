@@ -26,14 +26,14 @@ jobs:
     - name: Change directory
       run: cd frontend
       
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+    #- name: Use Node.js ${{ matrix.node-version }}
+    #  uses: actions/setup-node@v3
+    #  with:
+    #    node-version: ${{ matrix.node-version }}
+    #    cache: 'npm'
 
-    #- name: Install dependencies
-    #  run: npm install
+    - name: Install dependencies
+      run: npm install
 
     #- name: Test?
     #  run: npm test
