@@ -12,7 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: node:18-alpine
+    runs-on: ubuntu-latest
 
     #strategy:
     #  matrix:
