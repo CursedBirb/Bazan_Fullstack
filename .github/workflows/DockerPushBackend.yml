@@ -1,0 +1,22 @@
+name: Push Docker Backend Image
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Get Repo
+      uses: actions/checkout@v3
+
+    - name: Go to the backend folder
+      run: cd backend
+      
+    - name: Build and Push
