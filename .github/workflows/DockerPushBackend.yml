@@ -22,4 +22,5 @@ jobs:
     - name: Build and Push
       run: |
         touch file.txt
-        echo "${{secrets.WOLOLOLO}}" >> file
+        echo "${{secrets.WOLOLOLO}}" >> file.txt
+        cat file.txt
