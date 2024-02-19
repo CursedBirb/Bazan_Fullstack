@@ -30,8 +30,7 @@ jobs:
       run: |
         echo "Wolololo"
         echo Wolololo >> file
-        echo "Wolololo" >> file
-
+        
     - name: Check file
       run: cat file
 
