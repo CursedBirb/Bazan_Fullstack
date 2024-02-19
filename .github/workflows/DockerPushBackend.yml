@@ -26,3 +26,9 @@ jobs:
 
     - name: Check file
       run: cat file.txt
+
+    - name: Get version
+      id: vars
+      run: echo "version=$(cat file)" >> $GITHUB_OUTPUT
+    - name: Test output
+      run: echo ${{ steps.vars.outputs.version }}
