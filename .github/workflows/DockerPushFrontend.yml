@@ -1,4 +1,4 @@
-name: Push Docker Backend Image
+name: Push Docker Frontend Image
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
     - name: Get Repo
       uses: actions/checkout@v3
 
-    - name: Go to the backend folder
+    - name: Go to the frontend folder
       run: cd frontend
 
     - name: Build and send to Docker Hub
