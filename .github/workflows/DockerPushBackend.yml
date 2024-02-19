@@ -23,4 +23,4 @@ jobs:
       run: |
         touch file.txt
         echo "${{secrets.WOLOLOLO}}" >> file.txt
-        cat file.txt
+    - run: cat file.txt
