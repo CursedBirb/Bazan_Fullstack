@@ -25,6 +25,8 @@ jobs:
       run: |
         touch file
         echo $SECRET >> file
+    - name: Check file
+      run: echo $SECRET
 
     - name: Check file
       run: cat file
