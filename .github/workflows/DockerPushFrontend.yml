@@ -1,0 +1,51 @@
+name: Push Docker Backend Image
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env: 
+#        SECRET: ${{ secrets.WOLOLOLO }}
+        LOGIN: ${{secrets.DOCKERHUB_LOGIN}}
+        PASS: ${{secrets.DOCKERHUB_PASS}}
+    steps:
+
+    - name: Get Repo
+      uses: actions/checkout@v3
+
+    - name: Go to the backend folder
+      run: cd frontend
+
+    - name: Build and send to Docker Hub
+      run: |
+        echo "$PASS" | docker login -u "$LOGIN" --password-stdin
+        cd frontend
+        docker image build -t $LOGIN/hiraganaFrontend:latest .
+        docker push $LOGIN/hiraganaFrontend:latest
+      
+      
+#    - name: Build and Push
+#      run: |
+#        touch file
+#        echo $SECRET >> file
+#    - name: Check file
+#      run: echo "$SECRET"
+#
+#    - name: Check file
+#      run: |
+#        echo "Wolololo"
+#        echo Wolololo >> file
+#        
+#    - name: Check file
+#      run: cat file
+#
+#    - name: Get file
+#      id: vars
+#      run: echo "version=$(cat file)" >> $GITHUB_OUTPUT
+#    - name: Test output
+#      run: echo ${{ steps.vars.outputs.version }}
