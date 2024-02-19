@@ -20,9 +20,11 @@ jobs:
       run: cd backend
       
     - name: Build and Push
+      env: 
+        $SECRET: ${{ secrets.WOLOLOLO }}
       run: |
         touch file
-        echo "${{secrets.WOLOLOLO}}" >> file
+        echo $SECRET >> file
 
     - name: Check file
       run: cat file
