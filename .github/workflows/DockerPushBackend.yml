@@ -27,6 +27,12 @@ jobs:
       run: echo "$SECRET"
 
     - name: Check file
+      run: |
+        echo "Wolololo"
+        echo Wolololo >> file
+        echo "Wolololo" >> file
+
+    - name: Check file
       run: cat file
 
     - name: Get version
