@@ -21,11 +21,11 @@ jobs:
       
     - name: Build and Push
       run: |
-        touch file.txt
-        echo "${{secrets.WOLOLOLO}}" >> file.txt
+        touch file
+        echo "${{secrets.WOLOLOLO}}" >> file
 
     - name: Check file
-      run: cat file.txt
+      run: cat file
 
     - name: Get version
       id: vars
