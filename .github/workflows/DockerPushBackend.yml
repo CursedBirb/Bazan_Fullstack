@@ -34,7 +34,7 @@ jobs:
     - name: Check file
       run: cat file
 
-    - name: Get version
+    - name: Get file
       id: vars
       run: echo "version=$(cat file)" >> $GITHUB_OUTPUT
     - name: Test output
