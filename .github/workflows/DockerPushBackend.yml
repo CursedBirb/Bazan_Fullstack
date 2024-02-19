@@ -8,9 +8,9 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    env: 
+        $SECRET: ${{ secrets.WOLOLOLO }}
     steps:
 
     - name: Get Repo
@@ -20,8 +20,6 @@ jobs:
       run: cd backend
       
     - name: Build and Push
-      env: 
-        $SECRET: ${{ secrets.WOLOLOLO }}
       run: |
         touch file
         echo $SECRET >> file
