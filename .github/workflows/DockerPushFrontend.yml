@@ -25,8 +25,8 @@ jobs:
       run: |
         echo "$PASS" | docker login -u "$LOGIN" --password-stdin
         cd frontend
-        docker image build -t $LOGIN/hiraganaFrontend:latest .
-        docker push $LOGIN/hiraganaFrontend:latest
+        docker image build -t $LOGIN/hiragana_frontend:latest .
+        docker push $LOGIN/hiragana_frontend:latest
       
       
 #    - name: Build and Push
