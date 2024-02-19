@@ -24,6 +24,7 @@ jobs:
     - name: Build and send to Docker Hub
       run: |
         echo "$PASS" | docker login -u "$LOGIN" --password-stdin
+        cd backend
         docker image build -t $LOGIN/hiragana:latest .
         docker push $LOGIN/hiragana:latest
       
