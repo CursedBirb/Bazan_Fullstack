@@ -9,6 +9,7 @@ import controllers.models.Hiragana;
 public interface HiraganaRepository extends JpaRepository<Hiragana, Integer> {
 
     public Hiragana findById(int id);
+    public Hiragana findByHiraganaRomaji(String hiraganaRomaji);
     // Dodać metody zapytań
 
     //public Hiragana get(int i);

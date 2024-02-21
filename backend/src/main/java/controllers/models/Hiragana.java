@@ -25,21 +25,16 @@ public class Hiragana {
     @Column(name = "hiragana_image")
     private String hiraganaImage;
 
-    @Column(name = "hiragana_id")
-    private String hiraganaId;
-
     public Hiragana() {
 
         this.hiraganaRomaji = "brak";
         this.hiraganaImage = "brak";
-        this.hiraganaId = "brak";
 
     }
 
-    public Hiragana(String hiraganaRomaji, String hiraganaImage, String hiraganaId) {
+    public Hiragana(String hiraganaRomaji, String hiraganaImage) {
         this.hiraganaRomaji = hiraganaRomaji;
         this.hiraganaImage = hiraganaImage;
-        this.hiraganaId = hiraganaId;
     }
 
 }
