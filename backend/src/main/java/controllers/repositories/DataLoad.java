@@ -1,16 +1,17 @@
 package controllers.repositories;
 
-//Dodanie danych na samym poczatku
-
-import controllers.models.Transfer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+//Dodanie danych na samym poczatku
+
+import controllers.models.Transfer;
+
 
 @Component
-public class DataLoader implements ApplicationRunner {
+public class DataLoad implements ApplicationRunner {
 
    
     
@@ -18,7 +19,7 @@ public class DataLoader implements ApplicationRunner {
        
            
     @Autowired
-    public DataLoader(TransferRepository transferRepository)
+    public DataLoad(TransferRepository transferRepository)
     {        
         this.transferRepository = transferRepository;
     }
