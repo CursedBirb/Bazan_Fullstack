@@ -9,28 +9,27 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import controllers.models.Hiragana;
+import controllers.models.Users;
 import controllers.repositories.HiraganaRepository;
+import controllers.repositories.UsersRepository;
 
 @Component
 public class DatabaseLoader implements ApplicationRunner{
 
-    private HiraganaRepository hiraganaRepository;
-
     @Autowired
-    public DatabaseLoader(HiraganaRepository hiraganaRepository) {
-
-        this.hiraganaRepository = hiraganaRepository;
-
-    }
+    HiraganaRepository hiraganaRepository;
+    @Autowired
+    UsersRepository usersRepository;
     
     
     public void run(ApplicationArguments args) {
 
         try {
 
-            Hiragana isItFilled = hiraganaRepository.findByHiraganaRomaji("A");
+            Hiragana isItFilledWithAnswers = hiraganaRepository.findByHiraganaRomaji("A");
+            Users isItFilledWithUsers = usersRepository.findByUsername("Would");
 
-            if(isItFilled == null) {
+            if(isItFilledWithAnswers == null) {
 
                 HashMap<String, String> recordsToTable = new HashMap<String, String>(){{
 
@@ -92,6 +91,13 @@ public class DatabaseLoader implements ApplicationRunner{
 
                 }
                 
+            }
+
+            if(isItFilledWithAnswers == null) {
+
+                Users user = new Users("Would", "Would", "Would@gmail.com", 1);
+                usersRepository.save(user);
+
             }
 
         } catch (Exception e) {
