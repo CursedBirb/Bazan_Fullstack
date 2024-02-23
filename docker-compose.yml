@@ -2,6 +2,20 @@ version: '3'
 
 services:
 
+  postgres:
+    image: postgres
+    container_name: postgres_db
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Wolololo
+    networks:
+      - postgres-spring
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data
+
   backend:
     build:
       context: backend
@@ -12,10 +26,16 @@ services:
       - "8080:8080"
     ports:
       - "8080:8080"
+    depends_on:
+      - postgres
     environment:
       - SPRING.PROFILES.ACTIVE=default
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=Wolololo
     networks:
       - react-spring
+      - postgres-spring
 
   frontend:
     build:
@@ -37,6 +57,10 @@ services:
 
 networks:
   react-spring:
+  postgres-spring:
+
+# volumes:
+#   postgres_data:
 
 # Tried to add proxy
   # proxy:

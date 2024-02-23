@@ -2,8 +2,6 @@ package controllers.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,7 +13,6 @@ import lombok.Data;
 public class Hiragana {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
@@ -27,12 +24,14 @@ public class Hiragana {
 
     public Hiragana() {
 
+        this.id = 0;
         this.hiraganaRomaji = "brak";
         this.hiraganaImage = "brak";
 
     }
 
-    public Hiragana(String hiraganaRomaji, String hiraganaImage) {
+    public Hiragana(int id,String hiraganaRomaji, String hiraganaImage) {
+        this.id = id;
         this.hiraganaRomaji = hiraganaRomaji;
         this.hiraganaImage = hiraganaImage;
     }
