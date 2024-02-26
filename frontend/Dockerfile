@@ -1,9 +1,7 @@
-FROM node:21-alpine
-RUN addgroup app && adduser -S -G app app
+FROM node:18-alpine
 WORKDIR /app
-COPY --chown=app:app package.json .
+COPY package.json .
 RUN npm install
 COPY . .
-USER app
 EXPOSE 3000
 CMD ["npm", "run", "start"]
