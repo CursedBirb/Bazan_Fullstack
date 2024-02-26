@@ -52,9 +52,9 @@ public class StartApp implements CommandLineRunner {
             System.out.println(hiraganaList.get(i).toString());
 	}
 
-        System.out.println(repo2.findById(1).toString());
-        System.out.println(repo2.findById(2).toString());
-        System.out.println(repo2.findByUsername("Wolololo").toString());
+        // System.out.println(repo2.findById(1).toString());
+        // System.out.println(repo2.findById(2).toString());
+        // System.out.println(repo2.findByUsername("Wolololo").toString());
 
         // BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
