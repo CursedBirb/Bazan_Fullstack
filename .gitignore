@@ -34,3 +34,6 @@ build/
 
 ### Ideas ###
 .Thinking
+
+### Node Modules ###
+frontend/node_modules/
