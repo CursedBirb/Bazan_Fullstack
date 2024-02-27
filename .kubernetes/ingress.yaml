@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-connection
+  annotations:
+#    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - http:
+        paths:
+
+          - path: /?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: frontend-spring
+              servicePort: 3000
+
+          - path: /api/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: backend-react
+              servicePort: 8080
