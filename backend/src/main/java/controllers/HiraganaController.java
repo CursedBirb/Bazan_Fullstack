@@ -38,7 +38,7 @@ public class HiraganaController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/gethiraganarecord", method=RequestMethod.POST)
     public ResponseEntity<ArrayList<HHiragana>> getHiraganaRecords (@RequestBody String jsonString) {
         
