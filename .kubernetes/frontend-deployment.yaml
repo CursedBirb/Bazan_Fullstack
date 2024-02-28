@@ -3,13 +3,14 @@ kind: Service
 metadata:
   name: frontend-react
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: frontend-react
   ports:
     - protocol: TCP
       port: 3000
       targetPort: 3000
+      nodePort: 30001
 #  externalIPs:
 #    - 192.168.1.116
 ---
@@ -22,7 +23,7 @@ spec:
   selector:
     matchLabels:
       app: frontend-react
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -34,5 +35,7 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: WDS_SOCKER_PORT
+            - name: WDS_SOCKET_PORT
               value: "0"
+#            - name: BACKEND_ADDRESS
+#              value: "backend-spring:8080"
