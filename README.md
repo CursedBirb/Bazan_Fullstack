@@ -31,11 +31,11 @@ minikube start
 
 #This will start our k8 virtual machine
 
-kubect apply -f database-deployment.yaml
+kubectl apply -f database-deployment.yaml
 
-kubect apply -f backend-deployment.yaml
+kubectl apply -f backend-deployment.yaml
 
-kubect apply -f frontend-deployment.yaml
+kubectl apply -f frontend-deployment.yaml
 
 #Those three will start our app
 
